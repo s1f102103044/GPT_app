@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h1>Django Sample Application</h1>
+    <p>You can submit articles from the following form.</p>
+    <form action="{% url 'index' %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="titleInput">Title</label>
+        <input id="titleInput" name="title" type="text" placeholder="Input title">
+      </div>
+      <div>
+        <label for="textInput">Text</label>
+        <textarea id="textInput" name="text" rows="3"></textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <br>
+
+    {% for article in articles %}
+    <a href="{% url 'detail' article.id %}">{{ article.title }}</a>
+    <small>[{{ article.posted_at }}]</small>
+    <div>
+        {{ article.body | linebreaksbr }}
+    </div>
+    {% endfor %}
+
+    <p>No article.</p>
+
+  </body>
+</html>
