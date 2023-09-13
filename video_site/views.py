@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
+import openai
+openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
+openai.api_bace = 'https://api.openai.iniad.org/api/v1'
+
 def index(request):
 	context = {
         "articles": [
@@ -45,3 +49,16 @@ def update(request, article_id):
 
 def delete(request, article_id):
 	return redirect(index)
+
+#以下がGPT-3.5をPythonで実行するための関数
+#なお、本番運用時にGPT-3.5ではなくGPT-4のAPIキーに変更予定（上記「openai.api_key」を変更する）
+def gpt35():
+	question = input('Question:')
+
+	response = openai.ChatCompletion.create(
+		model = 'gpt-3.5-turbo',
+		message=[
+			{'role':'user','content':question},
+		],
+	)
+	print(response['choices'][0]['message']['content'])
