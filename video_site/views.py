@@ -19,6 +19,12 @@ def index(request):
     }
 	return render(request, 'video/index.html', context)
 
+def top(request):
+	return render(request, 'video/top.html')
+
+def question(request):
+	return render(request, 'video/question.html')
+
 def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
@@ -62,3 +68,17 @@ def gpt35():
 		],
 	)
 	print(response['choices'][0]['message']['content'])
+
+
+def question(request):
+    answer = ""
+    if request.method == "POST":
+        user_input = request.POST.get("user_input")
+        openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
+        response = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt=user_input,
+            max_tokens=300
+        )
+        answer = response.choices[0].text
+    return render(request, "video/question.html", {"answer": answer})

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- 他のメタタグとスクリプト -->
+</head>
+<body>
+    <form method="post" action="{% url 'question' %}">
+        {% csrf_token %}
+        <label for="user_input">Your Question:</label>
+        <input type="text" id="user_input" name="user_input">
+        <button type="submit">Ask GPT-3</button>
+    </form>
+
+    {% if answer %}
+    <div>
+        <p><strong>Answer from GPT-3:</strong></p>
+        <p>{{ answer }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
