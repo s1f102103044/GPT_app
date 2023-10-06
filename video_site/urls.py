@@ -11,6 +11,6 @@ urlpatterns = [
     path('question',views.question,name='question'),
 
     #あってるか微妙だが、GPT-3.5を動かすためのパスを書いた
-    path('gpt', views.gpt35, name='gpt35'),
+
     path('question/', views.question, name='question'),
 ]

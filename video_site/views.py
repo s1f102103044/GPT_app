@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.utils import timezone
 
 import openai
-openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
-openai.api_bace = 'https://api.openai.iniad.org/api/v1'
+
 
 def index(request):
+
+
 	context = {
         "articles": [
             {
@@ -56,29 +57,26 @@ def update(request, article_id):
 def delete(request, article_id):
 	return redirect(index)
 
-#以下がGPT-3.5をPythonで実行するための関数
-#なお、本番運用時にGPT-3.5ではなくGPT-4のAPIキーに変更予定（上記「openai.api_key」を変更する）
-def gpt35():
-	question = input('Question:')
 
-	response = openai.ChatCompletion.create(
-		model = 'gpt-3.5-turbo',
-		message=[
-			{'role':'user','content':question},
-		],
-	)
-	print(response['choices'][0]['message']['content'])
+
+	from django.shortcuts import render
+
+
+
 
 
 def question(request):
+    openai.api_key = 'Z98YF2NKSzzNbpc6NkvpUjckblBR4X3XdZJAMRgw6kzA_uIBE3ajapjdg_sRPx4qjB0NQY5ZjPQNlhudzOKM2zg'
+    openai.api_base = "https://api.openai.iniad.org/api/v1"
     answer = ""
     if request.method == "POST":
         user_input = request.POST.get("user_input")
-        openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
-        response = openai.Completion.create(
-            engine="text-davinci-002",
-            prompt=user_input,
-            max_tokens=300
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "あなたは映画をおすすめするアシスタントです。次の要求に具体的に答えてください。"},
+                {"role": "user", "content": user_input}
+            ],
         )
-        answer = response.choices[0].text
+        answer = response.choices[0].message['content']
     return render(request, "video/question.html", {"answer": answer})
