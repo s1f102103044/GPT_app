@@ -6,6 +6,9 @@
     <label>パスワード:<input type="password" name="password" required></label><br>
     <input type="submit" value="ログイン">
 </form>
+<div>
+  <a href="{% url 'register' %}">新規登録はこちら</a>
+</div>
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
