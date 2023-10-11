@@ -1,0 +1,8 @@
+{% block content %}
+<h2>保存された会話</h2>
+<ul>
+    {% for conversation in conversations %}
+    <li>{{ conversation.content }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

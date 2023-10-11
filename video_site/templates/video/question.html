@@ -17,5 +17,12 @@
         <p>{{ answer }}</p>
     </div>
     {% endif %}
+    <form method="post" action="{% url 'save_conversation' %}">
+        {% csrf_token %}
+        <textarea name="content" hidden>{{ conversation_content }}</textarea>
+        <button type="submit">この会話を保存</button>
+    </form>
+    <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
+
 </body>
 </html>

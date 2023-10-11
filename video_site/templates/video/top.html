@@ -22,14 +22,15 @@
         <!--ここからメニュー-->
         <div class="menu-content">
             <ul>
+            <li>
+                <a href="{% url 'question' %}">Question Page</a>
+            </li>
+
                 <li>
-                    <a href="{% url 'question' %}">Question Page</a>
+                    <a href="{% url 'user_login' %}">ログイン</a>
                 </li>
                 <li>
-                    <a href="{% url 'login' %}">ログイン</a>
-                </li>
-                <li>
-                    <a href="#">ログアウト</a>
+                    <a href="{% url 'user_logout' %}">ログアウト</a>
                 </li>
                 <li>
                     <a href="#">ライセンス</a>

@@ -11,6 +11,8 @@ from .forms import LoginForm
 
 from django.contrib.auth.forms import UserCreationForm
 
+from .models import Conversation
+
 
 import openai
 
@@ -84,3 +86,15 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'video/register.html', {'form': form})
+
+def save_conversation(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        content = request.POST.get('content')
+        Conversation.objects.create(user=request.user, content=content)
+    return redirect('view_conversations')
+
+def view_conversations(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    conversations = Conversation.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'conversations.html', {'conversations': conversations})
