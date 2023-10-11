@@ -4,12 +4,16 @@ from django.utils import timezone
 
 from django.shortcuts import render
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import LoginForm 
+
+
 import openai
 
 
 def index(request):
-
-
 	context = {
         "articles": [
             {
@@ -23,49 +27,13 @@ def index(request):
 	return render(request, 'video/index.html', context)
 
 def top(request):
-	return render(request, 'video/top.html')
+	return render(request, 'video/top.html', {})
 
 def question(request):
 	return render(request, 'video/question.html')
 
 def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
-
-def hello(request):
-    data = {
-	    'name':'Alice',
-	    'weather':'CLOUDY',
-	    'weather_detail':['Temperature: 23℃', 'Humidity: 40%', 'Wind: 5m/s'],
-	    'isGreatFortune': True,
-	    'fortune':'Great Fortune!'
-    }
-    return render(request, 'video/hello.html', data)
-
-def redirect_test(request):
-	return redirect(hello)
-
-def detail(request, article_id):
-	context = {
-		"article_id": article_id
-    }
-	return render(request, "video/tbd.html", context)
-
-def update(request, article_id):
-	context = {
-		"article_id":article_id
-    }
-	return render(request, "video/tbd.html", context)
-
-def delete(request, article_id):
-	return redirect(index)
-
-
-
-	from django.shortcuts import render
-
-
-
-
 
 def question(request):
     openai.api_key = 'Z98YF2NKSzzNbpc6NkvpUjckblBR4X3XdZJAMRgw6kzA_uIBE3ajapjdg_sRPx4qjB0NQY5ZjPQNlhudzOKM2zg'
@@ -83,8 +51,24 @@ def question(request):
         answer = response.choices[0].message['content']
     return render(request, "video/question.html", {"answer": answer})
 
-def login(request):
-	return render(request, 'video_site/login.html', {})
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect('top')
+            else:
+                messages.error(request, 'ユーザー名またはパスワードが間違っています')
+    else:
+        form = LoginForm()  # これがGETリクエスト時に必要です。
+    return render(request, 'video/login.html', {'form': form})
 
-#def logout(request):
-	#return render(request, 'video_site/logout.html', {})
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('top')
+

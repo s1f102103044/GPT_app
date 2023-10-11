@@ -2,17 +2,17 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-	path('', views.index, name='index'),
-    path('<int:article_id>/update', views.updated, name='updated'),
-    path('hello', views.hello, name='hello'),
-    path('redirect', views.redirect_test, name='redirect_test'),
-
+	#path('', views.index, name='index'),
+    #path('<int:article_id>/update', views.updated, name='updated'),
+    #path('hello', views.hello, name='hello'),
+    #path('redirect', views.redirect_test, name='redirect_test'),
+    
     path('top',views.top,name='top'),
     path('question',views.question,name='question'),
 
     #あってるか微妙だが、GPT-3.5を動かすためのパスを書いた
 
     path('question/', views.question, name='question'),
-    path('login', views.login, name='login'),
-    #path('logout', views.logout, name='loout'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
 ]

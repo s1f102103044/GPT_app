@@ -1,15 +1,16 @@
-<html lang="ja"><head><meta charset="utf-8"></head>
-  <body>
-    <h1>Login</h1>
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+{% block content %}
+<h2>ログイン</h2>
+<form method="post">
+    {% csrf_token %}
+    <label>ユーザーID:<input type="text" name="username" required></label><br>
+    <label>パスワード:<input type="password" name="password" required></label><br>
+    <input type="submit" value="ログイン">
+</form>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Login" />
-    </form>
-
-    <p><a href="{% url 'top' %}">home</a></p>
-  </body>
-</html>
+{% endblock %}
