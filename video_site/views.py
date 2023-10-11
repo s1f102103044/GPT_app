@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
+from django.shortcuts import render
+
 import openai
 
 
@@ -80,3 +82,9 @@ def question(request):
         )
         answer = response.choices[0].message['content']
     return render(request, "video/question.html", {"answer": answer})
+
+def login(request):
+	return render(request, 'video_site/login.html', {})
+
+def logout(request):
+	return render(request, 'video_site/logout.html', {})

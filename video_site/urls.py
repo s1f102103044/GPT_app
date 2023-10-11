@@ -13,4 +13,6 @@ urlpatterns = [
     #あってるか微妙だが、GPT-3.5を動かすためのパスを書いた
 
     path('question/', views.question, name='question'),
+    path('login', views.login, name='login'),
+    path('logout', views.logout, name='loout'),
 ]
