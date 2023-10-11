@@ -86,5 +86,5 @@ def question(request):
 def login(request):
 	return render(request, 'video_site/login.html', {})
 
-def logout(request):
-	return render(request, 'video_site/logout.html', {})
+#def logout(request):
+	#return render(request, 'video_site/logout.html', {})

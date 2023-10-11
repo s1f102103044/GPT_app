@@ -14,5 +14,5 @@ urlpatterns = [
 
     path('question/', views.question, name='question'),
     path('login', views.login, name='login'),
-    path('logout', views.logout, name='loout'),
+    #path('logout', views.logout, name='loout'),
 ]
