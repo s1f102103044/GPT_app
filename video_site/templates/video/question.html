@@ -4,7 +4,7 @@
     <!-- 他のメタタグとスクリプト -->
 </head>
 <body>
-    <form method="post" action="{% url 'question' %}">
+    <form method="post">
         {% csrf_token %}
         <label for="user_input">Your Question:</label>
         <input type="text" id="user_input" name="user_input">
@@ -14,13 +14,14 @@
     {% if answer %}
     <div>
         <p><strong>Answer from GPT-3:</strong></p>
-        <p>{{ answer }}</p>
+        <p>{{ answer|safe }}</p>
     </div>
     {% endif %}
     <form method="post" action="{% url 'save_conversation' %}">
         {% csrf_token %}
-        <textarea name="content" hidden>{{ conversation_content }}</textarea>
-        <button type="submit">この会話を保存</button>
+        <input type="hidden" name="user_input" value="{{ user_input }}">
+        <input type="hidden" name="answer" value="{{ answer }}">
+        <input type="submit" value="この会話を保存">
     </form>
     <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
 

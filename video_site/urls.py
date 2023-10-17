@@ -18,6 +18,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('save_conversation/', views.save_conversation, name='save_conversation'),
     path('view_conversations/', views.view_conversations, name='view_conversations'),
-    #path('chat/', views.chat_view, name='chat_page'),
-
+    path('toggle_delete_mode/', views.toggle_delete_mode, name='toggle_delete_mode'),
+    path('delete_conversations/', views.delete_conversations, name='delete_conversations'),
+    path('question/', views.question, name='question_page'),
 ]

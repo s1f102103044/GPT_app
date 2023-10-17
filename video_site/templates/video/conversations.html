@@ -1,8 +1,26 @@
 {% block content %}
 <h2>保存された会話</h2>
-<ul>
+
+{% if delete_mode %}
+<form method="post" action="{% url 'delete_conversations' %}">
+    {% csrf_token %}
     {% for conversation in conversations %}
-    <li>{{ conversation.content }}</li>
+        <input type="checkbox" name="delete_ids" value="{{ conversation.id }}">
+        {{ conversation.content|safe }}<br>
     {% endfor %}
-</ul>
+    <input type="submit" value="選んだログを削除">
+</form>
+{% else %}
+    {% for conversation in conversations %}
+        {{ conversation.content|safe }}<br>
+    {% endfor %}
+    <form method="post" action="{% url 'toggle_delete_mode' %}">
+        {% csrf_token %}
+        <input type="submit" value="保存された会話を削除する">
+    </form>
+{% endif %}
+<a href="{% url 'question_page' %}" class="btn btn-primary">GPTの質問ページに戻る</a>
+
+
 {% endblock %}
+

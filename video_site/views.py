@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 from .models import Conversation
 
+from django.http import HttpResponseRedirect
+
 
 import openai
 
@@ -43,6 +45,7 @@ def question(request):
     openai.api_key = 'Z98YF2NKSzzNbpc6NkvpUjckblBR4X3XdZJAMRgw6kzA_uIBE3ajapjdg_sRPx4qjB0NQY5ZjPQNlhudzOKM2zg'
     openai.api_base = "https://api.openai.iniad.org/api/v1"
     answer = ""
+    user_input = ""
     if request.method == "POST":
         user_input = request.POST.get("user_input")
         response = openai.ChatCompletion.create(
@@ -52,8 +55,14 @@ def question(request):
                 {"role": "user", "content": user_input}
             ],
         )
-        answer = response.choices[0].message['content']
-    return render(request, "video/question.html", {"answer": answer})
+        raw_answer = response.choices[0].message['content']
+        answer = format_response(raw_answer)  # 追加した整形関数を使用して応答を整形します
+
+    context = {
+        'user_input': user_input,
+        'answer': answer
+    }
+    return render(request, "video/question.html", context)
 
 def user_login(request):
     if request.method == 'POST':
@@ -89,12 +98,34 @@ def register(request):
 
 def save_conversation(request):
     if request.method == 'POST' and request.user.is_authenticated:
-        content = request.POST.get('content')
+        user_input = request.POST.get('user_input')
+        answer = request.POST.get('answer')
+        content = f"User: {user_input}\nGPT: {answer}"
         Conversation.objects.create(user=request.user, content=content)
     return redirect('view_conversations')
+
 
 def view_conversations(request):
     if not request.user.is_authenticated:
         return redirect('user_login')
+    delete_mode = request.session.get('delete_mode', False)
     conversations = Conversation.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'conversations.html', {'conversations': conversations})
+    return render(request, 'video/conversations.html', {'conversations': conversations, 'delete_mode': delete_mode})
+
+@login_required
+def delete_conversations(request):
+    if request.method == "POST":
+        delete_ids = request.POST.getlist('delete_ids')
+        Conversation.objects.filter(id__in=delete_ids, user=request.user).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def toggle_delete_mode(request):
+    request.session['delete_mode'] = not request.session.get('delete_mode', False)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def format_response(text):
+    # 「。」の後にHTMLの改行タグを追加
+    formatted_text = text.replace("。", "。<br>")
+    return formatted_text
+
+
