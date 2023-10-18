@@ -1,11 +1,23 @@
-{% block content %}
-<h2>ユーザー登録</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">登録</button>
-</form>
-<div>
-    <a href="{% url 'user_login' %}">すでにアカウントを持っている方はこちら</a>
-</div>
-{% endblock %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+
+<body>
+    <h2>ユーザー登録</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録</button>
+    </form>
+    <div>
+        <a href="{% url 'user_login' %}">すでにアカウントを持っている方はこちら</a>
+    </div>
+</body>
+
+</html>
+
