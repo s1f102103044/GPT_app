@@ -1,19 +1,34 @@
-{% block content %}
-<h2>ログイン</h2>
-<form method="post">
-    {% csrf_token %}
-    <label>ユーザーID:<input type="text" name="username" required></label><br>
-    <label>パスワード:<input type="password" name="password" required></label><br>
-    <input type="submit" value="ログイン">
-</form>
-<div>
-  <a href="{% url 'register' %}">新規登録はこちら</a>
-</div>
-{% if messages %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <p class="fsize">ログイン</p>
+            <form method="post">
+                {% csrf_token %}
+                <label>ユーザーID:<input type="text" name="username" required></label><br>
+                <label>パスワード:<input type="password" name="password" required></label><br>
+                <input type="submit" value="ログイン">
+            </form>
+        </form>
+    </div>
+    <div>
+        <a href="{% url 'register' %}">新規登録はこちら</a>
+    </div>
+    {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li>{{ message }}</li>
+        <li>{{ message }}</li>
         {% endfor %}
     </ul>
-{% endif %}
-{% endblock %}
+    {% endif %}
+
+</body>
+
+</html>
