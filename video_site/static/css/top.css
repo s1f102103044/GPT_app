@@ -137,20 +137,60 @@ footer {
 
 
 
-#nav {
-  list-style: none;
-  overflow: hidden;
-}
- 
-#nav li {
-  width: 140px;
+nav ul{
+  margin: 0 auto;
+  padding: 0;
   text-align: center;
-  background-color: #333;
-  float: left;
-}
- 
-#nav li a {
+  }
+  nav ul li{
+  display: inline-block;
+  position: relative;
+  padding-right: 15px;
+  margin-right: 10px;
+  }
+  nav ul li a::after,
+  nav ul li a::before {
+  display: block;
+  content: ”;
+  position: absolute;
+  }
+  nav ul li a::after {
+  top: 10%;
+  right: 0;
+  width: 13px;
+  height: 13px;
+  background-color: #ccc;
+  border-radius: 100%;
+  }
+  nav ul li a.current::after,
+  nav ul li a:hover:after{
+  background-color: #3498db;
+  }
+  nav ul li a::before {
+  z-index: 2;
+  top: 40%;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  }
+  nav ul li a{
   text-decoration: none;
-  color: #fff;
-  font-weight: bold;
+  color:#aaa;
+  display: inline-block;
+  width: 100%;
+  }
+  nav ul li a.current{
+  color:#555;
+  }
+  nav ul li a:hover{
+  color:#555;
+  }
+
+
+.cinema span {
+  color: rgb(125, 201, 255);
 }
