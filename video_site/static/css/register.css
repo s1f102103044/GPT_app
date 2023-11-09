@@ -6,8 +6,8 @@ h1{
     color: rgb(245, 243, 243);
 }
 
-span {
-    color: #3584BB;
+.cinema span {
+    color: rgb(125, 201, 255);
 }
 
 .fsize{

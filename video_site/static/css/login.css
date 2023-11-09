@@ -8,8 +8,13 @@ p{
     font-weight: bold;
 }
 
+.cinema span {
+    color: rgb(125, 201, 255);
+}
+
+
 a{
-    color:#4e9cb9;
+    color:#4eb5b9;
 }
 
 .container {
