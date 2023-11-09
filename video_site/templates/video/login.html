@@ -1,12 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 
 <body>
+    <header>
+        <div class="ber">
+            <input type="checkbox" id="menu-btn-check">
+            <label for="menu-btn-check" class="menu-btn"><span></span></label>
+            <!--ここからメニュー-->
+            <div class="menu-content">
+                <ul>
+                    <li>
+                        <a href="{% url 'question' %}">Question Page</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'user_login' %}">ログイン</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'user_logout' %}">ログアウト</a>
+                    </li>
+                    <li>
+                        <a href="#">ライセンス</a>
+                    </li>
+                    <li>
+                        <a href="#">ヘルプ</a>
+                    </li>
+                    <li>
+                        <a href="question.html">お問い合わせ</a>
+                    </li>
+                </ul>
+            </div>
+            <!--ここまでメニュー-->
+        </div>
+
+    </header>
+
+    <h1 style="text-align:center">CinemaCompass</h1>
     <div class="container">
         <form>
             <p class="fsize">ログイン</p>
