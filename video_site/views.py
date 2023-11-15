@@ -14,11 +14,12 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Conversation
 
 from django.http import HttpResponseRedirect
-
+from .forms import QuestionForm
+import requests  # TMDb APIのリクエストに使用します
 
 import openai
 
-
+'''
 def index(request):
 	context = {
         "articles": [
@@ -31,9 +32,35 @@ def index(request):
         ]
     }
 	return render(request, 'video/index.html', context)
+'''
+
+def index(request):
+    if request.user.is_authenticated:
+        return redirect('top')
+    else:
+        return redirect('register')
 
 def top(request):
-	return render(request, 'video/top.html', {})
+    # セッションからユーザーの選択を取得する
+    user_preferences = request.session.get('user_preferences')
+
+    # TMDb APIを呼び出して映画のリストを取得する
+    recommended_movies = []
+    if user_preferences:
+        api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
+        # 例として、ユーザーが好むジャンルに基づく映画を検索する
+        genre = user_preferences.get('genre')
+        url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre}'
+        response = requests.get(url)
+        movies = response.json().get('results', [])
+    else:
+        movies = []
+    
+    # セッションから推薦映画のリストを取得
+    recommended_movies = request.session.get('recommended_movies', [])
+
+    return render(request, 'video/top.html', {'recommended_movies': recommended_movies})
+
 
 def question(request):
 	return render(request, 'video/question.html')
@@ -42,43 +69,71 @@ def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
 def question(request):
-    openai.api_key = 'Z98YF2NKSzzNbpc6NkvpUjckblBR4X3XdZJAMRgw6kzA_uIBE3ajapjdg_sRPx4qjB0NQY5ZjPQNlhudzOKM2zg'
-    openai.api_base = "https://api.openai.iniad.org/api/v1"
-    answer = ""
-    user_input = ""
-    if request.method == "POST":
-        user_input = request.POST.get("user_input")
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "あなたは映画をおすすめするアシスタントです。次の要求に具体的に答えてください。"},
-                {"role": "user", "content": user_input}
-            ],
-        )
-        raw_answer = response.choices[0].message['content']
-        answer = format_response(raw_answer)  # 追加した整形関数を使用して応答を整形します
+    is_new_user = request.session.get('is_new_user', False)
 
-    context = {
-        'user_input': user_input,
-        'answer': answer
-    }
-    return render(request, "video/question.html", context)
+    if request.method == 'POST' and is_new_user:
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            # ユーザーがフォームに入力したデータを取得
+            genre = form.cleaned_data.get('genre')
+            director = form.cleaned_data.get('director')
+            actor = form.cleaned_data.get('actor')
+
+            # TMDb APIを呼び出して映画の推薦情報を取得
+            api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
+            url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={genre}'
+            response = requests.get(url)
+            movies = response.json().get('results', [])
+
+            # 映画の推薦情報をセッションに保存
+            request.session['recommended_movies'] = movies
+
+            # ユーザーの好みをセッションに保存
+            request.session['user_preferences'] = {
+                'genre': genre,
+                'director': director,
+                'actor': actor
+            }
+
+            # TMDb APIを使用して映画データを取得
+            movies_data = get_movies_data(genre, director, actor)
+            request.session['recommended_movies'] = movies_data
+
+            # 新規ユーザーのマークを削除
+            request.session['is_new_user'] = False
+
+            # ユーザーをtopビューにリダイレクト
+            return redirect('top')
+    else:
+        form = QuestionForm()
+
+    return render(request, 'video/question.html', {'form': form, 'is_new_user': is_new_user})
+
+def get_movies_data(genre, director, actor):
+    api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
+    # APIを使って映画データを取得するロジック
+    # 例: ジャンルに基づいて映画を検索
+    url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre}'
+    response = requests.get(url)
+    movies = response.json().get('results', [])
+
+    # 必要なデータ（タイトル、イメージURLなど）を抽出
+    movies_data = [{'title': movie['title'], 'image_url': movie['poster_path']} for movie in movies]
+    return movies_data
+
 
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user:
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
                 login(request, user)
                 return redirect('top')
-            else:
-                messages.error(request, 'ユーザー名またはパスワードが間違っています')
     else:
-        form = LoginForm()  # これがGETリクエスト時に必要です。
+        form = LoginForm()
     return render(request, 'video/login.html', {'form': form})
+
 
 @login_required
 def user_logout(request):
@@ -90,11 +145,14 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "ユーザー登録が完了しました！ログインしてください。")
-            return redirect('login')
+            request.session['is_new_user'] = True
+            messages.success(request, "ユーザー登録が完了しました！")
+            request.session['is_new_user'] = True
+            return redirect('question')
     else:
         form = UserCreationForm()
     return render(request, 'video/register.html', {'form': form})
+
 
 def save_conversation(request):
     if request.method == 'POST' and request.user.is_authenticated:
