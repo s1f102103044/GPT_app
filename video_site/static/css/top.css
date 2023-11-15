@@ -5,6 +5,9 @@ header {
 body {
   background-color: rgb(0, 3, 6);
 }
+ .cinema h1{
+  color: #FFFFFF;
+ }
 
 article h1 {
   color: #cdc5c5;
