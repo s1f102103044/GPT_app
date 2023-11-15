@@ -54,6 +54,16 @@
         <h1 style="text-align:center"><span>C</span>inema<span>C</span>ompass</h1>
     </div>
     <form style="text-align:center" method="post">
+
+    {% if is_new_user %}
+        <form method="post" action="{% url 'question' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">送信</button>
+        </form>
+    {% endif %}
+    
+    <form method="post">
         {% csrf_token %}
         <label for="user_input">Your Question:</label>
         <input type="text" id="user_input" name="user_input">
@@ -73,6 +83,6 @@
         <input  type="submit" value="この会話を保存">
     </form>
     <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
-
+    <a href="{% url 'top' %}">トップページへ戻る</a>
 </body>
 </html>

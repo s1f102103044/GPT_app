@@ -1,93 +1,105 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="utf-8">
-    <title>サイトタイトル</title>
-    <meta name="description" content="ディスクリプションを入力">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/top.css' %}">
-    <!-- [if lt IE 9] -->
-    <script src="{% static 'js/top.js' %}"></script>
-    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-    <!-- [endif] -->
-    <script src="main.js"></script>
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <meta charset="utf-8">
+  <title>サイトタイトル</title>
+  <meta name="description" content="ディスクリプションを入力">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/top.css' %}">
+  <!-- [if lt IE 9] -->
+  <script src="{% static 'js/top.js' %}"></script>
+  <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+  <!-- [endif] -->
+  <script src="main.js"></script>
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 </head>
 
 <body>
 
-    <!----- header----->
-    <header>
-        <div class="ber">
-            <input type="checkbox" id="menu-btn-check">
-            <label for="menu-btn-check" class="menu-btn"><span></span></label>
-            <!--ここからメニュー-->
-            <div class="menu-content">
-                <ul>
-                    <li>
-                        <a href="{% url 'question' %}">Question Page</a>
-                    </li>
+  <!----- header----->
+  <header>
+      <div class="ber">
+          <input type="checkbox" id="menu-btn-check">
+          <label for="menu-btn-check" class="menu-btn"><span></span></label>
+          <!--ここからメニュー-->
+          <div class="menu-content">
+              <ul>
+                  <li>
+                      <a href="{% url 'question' %}">Question Page</a>
+                  </li>
 
-                    <li>
-                        <a href="{% url 'user_login' %}">ログイン</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'user_logout' %}">ログアウト</a>
-                    </li>
-                    <li>
-                        <a href="#">ライセンス</a>
-                    </li>
-                    <li>
-                        <a href="#">ヘルプ</a>
-                    </li>
-                    <li>
-                        <a href="question.html">お問い合わせ</a>
-                    </li>
-                </ul>
-            </div>
-            <!--ここまでメニュー-->
-        </div>
+                  <li>
+                      <a href="{% url 'user_login' %}">ログイン</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'user_logout' %}">ログアウト</a>
+                  </li>
+                  <li>
+                      <a href="#">ライセンス</a>
+                  </li>
+                  <li>
+                      <a href="#">ヘルプ</a>
+                  </li>
+                  <li>
+                      <a href="question.html">お問い合わせ</a>
+                  </li>
+              </ul>
+          </div>
+          <!--ここまでメニュー-->
+      </div>
 
-    </header>
-    <!----- /header ----->
-    <!----- main ----->
-    
-    <nav>
-        <ul>
-        <li><a class="current" href="{% url 'question' %}">Question Page</a></li>
-        <li><a href="{% url 'user_login' %}">ログイン</a></li>
-        <li><a href="#">ログアウト</a></li>
-        <li><a href="#">ヘルプ</a></li>
-        <li><a href="#">問い合わせ</a></li>
-        </ul>
-    </nav>
+  </header>
+  <!----- /header ----->
+  <!----- main ----->
 
-    <div class="cinema">
-        <h1 style="text-align:center"><span>C</span>inema<span>C</span>ompass</h1>
-    </div>
+ <body>
 
-    
+  <nav>
+    <ul>
+    <li><a class="current" href="{% url 'question' %}">Question Page</a></li>
+    <li><a href="{% url 'user_login' %}">ログイン</a></li>
+    <li><a href="#">ログアウト</a></li>
+    <li><a href="#">ヘルプ</a></li>
+    <li><a href="#">問い合わせ</a></li>
+    </ul>
+</nav>
 
-    
-    <article>
-        
-        <section>
-            {% if user.is_authenticated %}
-            <p>こんにちは、{{ user.username }}さん！</p>
-            {% else %}
-            <p>ログインをしてください。</p>
-            {% endif %}
+<div class="cinema">
+    <h1 style="text-align:center"><span>C</span>inema<span>C</span>ompass</h1>
+</div>
 
-            <h2>見出し2.0</h2>
-            <p>コンテンツの内容</p>
-        </section>
-    </article>
-    <!----- /main ----->
-    <!----- footer ----->
-    <footer>フッター</footer>
-    <!----- /footer ----->
-</body>
 
+ <article>
+ <h1 style ="text-align:center">CinemaCompass</h1>
+ <section>
+    {% if user.is_authenticated %}
+    <p>こんにちは、{{ user.username }}さん！</p>
+    {% else %}
+    <p>ログインをしてください。</p>
+    {% endif %}
+
+    {% if recommended_movies %}
+<h2>お勧めの映画</h2>
+<ul>
+    {% for movie in recommended_movies %}
+    <li>
+        <h3>{{ movie.title }}</h3>
+        <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}">
+        <p>{{ movie.overview }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>お勧めの映画はまだありません。</p>
+{% endif %}
+
+    <h2>見出し2.0</h2>
+    <p>コンテンツの内容</p>
+ </section>
+ </article>
+
+ <footer>フッター</footer>
+ </body>
 </html>
+
