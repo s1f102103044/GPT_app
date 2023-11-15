@@ -1,6 +1,11 @@
 h1{
-    color: rgb(245, 243, 243);
+    text-decoration: none;
+    color:#f8efef;
+    display: inline-block;
+    width: 100%;
 }
+
+
 
 body {
     background-color: rgb(24, 37, 51);
@@ -10,7 +15,7 @@ label {
     color: #FFFFFF;
 }
 
-a{
+.save a{
     color: aquamarine;
 }
 
@@ -183,4 +188,47 @@ nav ul{
     nav ul li a:hover{
     color:#555;
     }
+
+
+    .user_input {
+        position: relative;
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+      
+      .FlexTextarea__dummy {
+        overflow: hidden;
+        visibility: hidden;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        min-height: 120px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        border: 1px solid;
+      }
+      
+      #user_input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: 1px solid #b6c3c6;
+        border-radius: 4px;
+        color: inherit;
+        font: inherit;
+        letter-spacing: inherit;
+        resize: none;
+      }
+      
+      #user_input:focus {
+        box-shadow: 0 0 0 4px rgba(235, 242, 243, 0.3);
+        outline: 0;
+      }
   
