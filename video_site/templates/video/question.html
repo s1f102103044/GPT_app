@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <script src="{% static 'js/top.js' %}"></script>
     <!-- 他のメタタグとスクリプト -->
 </head>
 
@@ -49,13 +50,17 @@
     </ul>
 </nav>
 <body>
-    <div class="cinema">
-        <h1 style="text-align:center"><span>C</span>inema<span>C</span>ompass</h1>
+    <div style="text-align: center" class="cinema">
+        <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
     </div>
     <form style="text-align:center" method="post">
         {% csrf_token %}
-        <label for="user_input">Your Question:</label>
-        <input type="text" id="user_input" name="user_input">
+        <label for="user_input">↓Your Question↓</label>
+        <div class = "user_input">
+            <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+            <input type="text" id="user_input" name="user_input">
+        </div>
+        
         <button type="submit">Ask GPT-3</button>
     </form>
 
@@ -71,7 +76,9 @@
         <input type="hidden" name="answer" value="{{ answer }}">
         <input  type="submit" value="この会話を保存">
     </form>
-    <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
+    <div class="save">
+        <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
+    </div>
 
 </body>
 </html>
