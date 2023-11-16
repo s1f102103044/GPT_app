@@ -19,6 +19,10 @@
         <div class="menu-content">
             <ul>
                 <li>
+                    <a href="{% url 'top' %}">トップページ</a>
+                </li>
+
+                <li>
                     <a href="{% url 'question' %}">Question Page</a>
                 </li>
 
@@ -45,7 +49,8 @@
 </header>
 <nav>
     <ul>
-    <li><a class="current" href="{% url 'question' %}">Question Page</a></li>
+    <li><a href="#">トップページ</a></li>
+    <li><a class="" href="{% url 'question' %}">Question Page</a></li>
     <li><a href="{% url 'user_login' %}">ログイン</a></li>
     <li><a href="#">ログアウト</a></li>
     <li><a href="#">ヘルプ</a></li>
