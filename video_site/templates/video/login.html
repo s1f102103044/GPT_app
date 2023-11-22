@@ -50,16 +50,15 @@
         <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
     </div>
     <div class="container">
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <p class="fsize">ログイン</p>
-            <form method="post">
-                {% csrf_token %}
-                <label>ユーザーID:<input type="text" name="username" required></label><br>
-                <label>パスワード:<input type="password" name="password" required></label><br>
-                <input type="submit" value="ログイン">
-            </form>
+            <label>ユーザーID:<input type="text" name="username" required></label><br>
+            <label>パスワード:<input type="password" name="password" required></label><br>
+            <input type="submit" value="ログイン">
         </form>
     </div>
+    
     <div>
         <a href="{% url 'register' %}">新規登録はこちら</a>
     </div>

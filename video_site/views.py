@@ -61,17 +61,17 @@ def top(request):
 
     return render(request, 'video/top.html', {'recommended_movies': recommended_movies})
 
-
+'''
 def question(request):
 	return render(request, 'video/question.html')
-
+'''
 def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
 def question(request):
     is_new_user = request.session.get('is_new_user', False)
 
-    if request.method == 'POST' and is_new_user:
+    if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
             # ユーザーがフォームに入力したデータを取得
@@ -126,13 +126,18 @@ def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect('top')
+            else:
+                messages.error(request, 'ログイン情報が正しくありません。')
     else:
         form = LoginForm()
     return render(request, 'video/login.html', {'form': form})
+
 
 
 @login_required
@@ -144,14 +149,14 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            request.session['is_new_user'] = True
-            messages.success(request, "ユーザー登録が完了しました！")
+            user = form.save()
+            login(request, user)
             request.session['is_new_user'] = True
             return redirect('question')
     else:
         form = UserCreationForm()
     return render(request, 'video/register.html', {'form': form})
+
 
 
 def save_conversation(request):
