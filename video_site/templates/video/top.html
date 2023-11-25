@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 </head>
 
-<body>
+<body style="text-align: center;">
 
   <!----- header----->
   <header>
@@ -57,8 +57,8 @@
   <!----- main ----->
   <nav>
     <ul>
-    <li><a href="#">トップページ</a></li>
-    <li><a class="" href="{% url 'question' %}">Question Page</a></li>
+    <li><a href="{% url 'top' %}">トップページ</a></li>
+    <li><a href="{% url 'question' %}">Question Page</a></li>
     <li><a href="{% url 'user_login' %}">ログイン</a></li>
     <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
     <li><a href="#">ヘルプ</a></li>
