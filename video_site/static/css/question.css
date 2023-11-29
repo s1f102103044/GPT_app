@@ -8,7 +8,7 @@ h1{
 
 
 body {
-    background-color: rgb(24, 37, 51);
+    background-color: rgb(48, 50, 51);
 }
 
 label {
@@ -16,7 +16,7 @@ label {
 }
 
 .save a{
-    color: aquamarine;
+    color: rgb(96, 179, 179);
 }
 
 .cinema span {

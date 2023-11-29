@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
 
     <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
-    <script src="{% static 'js/top.js' %}"></script>
+    <script src="{% static 'js/question.js' %}"></script>
     <title>CinemaCompass - question</title>
     <!-- 他のメタタグとスクリプト -->
 </head>
@@ -16,7 +16,7 @@
         <input type="checkbox" id="menu-btn-check">
         <label for="menu-btn-check" class="menu-btn"><span></span></label>
         <!--ここからメニュー-->
-        <div class="menu-content">
+        <div style="text-align: center;" class="menu-content">
             <ul>
                 <li>
                     <a href="{% url 'top' %}">トップページ</a>
@@ -49,10 +49,10 @@
 </header>
 <nav>
     <ul>
-    <li><a href="#">トップページ</a></li>
+    <li><a href="{% url 'top' %}">トップページ</a></li>
     <li><a class="" href="{% url 'question' %}">Question Page</a></li>
     <li><a href="{% url 'user_login' %}">ログイン</a></li>
-    <li><a href="#">ログアウト</a></li>
+    <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
     <li><a href="#">ヘルプ</a></li>
     <li><a href="#">問い合わせ</a></li>
     </ul>
@@ -98,7 +98,7 @@
     <div class="save">
         <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
     </div>
-    <a href="{% url 'top' %}">トップページへ戻る</a>
+    <!--<a style="color: rgb(80, 142, 142);" href="{% url 'top' %}">トップページへ戻る</a>-->
  
 </body>
 </html>

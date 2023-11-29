@@ -15,7 +15,7 @@
             <input type="checkbox" id="menu-btn-check">
             <label for="menu-btn-check" class="menu-btn"><span></span></label>
             <!--ここからメニュー-->
-            <div class="menu-content">
+            <div style="text-align: center;" class="menu-content">
                 <ul>
                     <li>
                         <a href="{% url 'top' %}">トップページ</a>
@@ -55,12 +55,15 @@
             <p class="fsize">ログイン</p>
             <label>ユーザーID:<input type="text" name="username" required></label><br>
             <label>パスワード:<input type="password" name="password" required></label><br>
-            <input type="submit" value="ログイン">
+            <input style="color: black;font-weight: bold;" type="submit" value="ログイン">
         </form>
     </div>
     
-    <div>
-        <a href="{% url 'register' %}">新規登録はこちら</a>
+    <div style="text-align: center">
+        <a  href="#">パスワードを忘れた方はこちら</a>
+    </div>
+    <div style="text-align: center">
+        <a  href="{% url 'register' %}">新規登録はこちら</a>
     </div>
     {% if messages %}
     <ul class="messages">

@@ -3,7 +3,7 @@
 }
 
 h1{
-    color: rgb(245, 243, 243);
+    color: rgb(244, 238, 238);
 }
 
 .cinema span {
@@ -19,7 +19,7 @@ p{
 }
 
 a{
-    color:#4e9cb9;
+    color:#c3fcff;
 }
 
 .container {
@@ -50,7 +50,7 @@ header {
 
 body {
     background-color: #070404; /* Black */
-    color: #b2a7a7; /* White text on a black background */
+    color: #ffffff; /* White text on a black background */
 }
 .container {
     background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
@@ -168,4 +168,23 @@ body {
 #menu-btn-check:checked~.menu-content {
     left: 0;
     /*メニューを画面内へ*/
+}
+
+
+.container p button{
+    width: 40%;
+    min-width: 100px;
+    max-width: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #799a68;
+    background: #5db853;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight:bold;
+    /*font-size: large;*/
+}
+
+.container p label{
+    color: rgb(197, 61, 61);
 }
