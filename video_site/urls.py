@@ -17,7 +17,4 @@ urlpatterns = [
     path('toggle_delete_mode/', views.toggle_delete_mode, name='toggle_delete_mode'),
     path('delete_conversations/', views.delete_conversations, name='delete_conversations'),
     path('question/', views.question, name='question_page'),
-    path('help/',views.help,name='help'),
-    path('info/',views.info,name='info'),
-    path('license/',views.license,name='license'),
 ]
