@@ -59,7 +59,9 @@
     <ul>
     <li><a href="{% url 'top' %}">トップページ</a></li>
     <li><a href="{% url 'question' %}">Question Page</a></li>
+    {% if not user.is_authenticated %}
     <li><a href="{% url 'user_login' %}">ログイン</a></li>
+    {% endif %}
     <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
     <li><a href="#">ヘルプ</a></li>
     <li><a href="#">問い合わせ</a></li>

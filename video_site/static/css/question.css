@@ -1,11 +1,9 @@
-h1{
+h1 {
     text-decoration: none;
-    color:#f8efef;
+    color: #f8efef;
     display: inline-block;
     width: 100%;
 }
-
-
 
 body {
     background-color: rgb(48, 50, 51);
@@ -15,7 +13,7 @@ label {
     color: #FFFFFF;
 }
 
-.save a{
+.save a {
     color: rgb(96, 179, 179);
 }
 
@@ -35,7 +33,7 @@ label {
     z-index: 90;
     background-color: #3584BB;
 }
-  
+
 .menu-btn span,
 .menu-btn span:before,
 .menu-btn span:after {
@@ -47,34 +45,33 @@ label {
     background-color: #FFFFFF;
     position: absolute;
 }
-  
+
 .menu-btn span:before {
     bottom: 8px;
 }
-  
+
 .menu-btn span:after {
     top: 8px;
 }
-  
+
 #menu-btn-check:checked~.menu-btn span {
     background-color: rgba(255, 255, 255, 0);
-    /*メニューオープン時は真ん中の線を透明にする*/
 }
-  
+
 #menu-btn-check:checked~.menu-btn span::before {
     bottom: 0;
     transform: rotate(45deg);
 }
-  
+
 #menu-btn-check:checked~.menu-btn span::after {
     top: 0;
     transform: rotate(-45deg);
 }
-  
+
 #menu-btn-check {
     display: none;
 }
-  
+
 .menu-content {
     width: 100%;
     height: 100%;
@@ -84,16 +81,16 @@ label {
     z-index: 80;
     background-color: #3584BB;
 }
-  
+
 .menu-content ul {
     padding: 70px 10px 0;
 }
-  
+
 .menu-content ul li {
     border-bottom: solid 1px #FFFFFF;
     list-style: none;
 }
-  
+
 .menu-content ul li a {
     display: block;
     width: 100%;
@@ -104,7 +101,7 @@ label {
     padding: 9px 15px 10px 0;
     position: relative;
 }
-  
+
 .menu-content ul li a::before {
     content: "";
     width: 7px;
@@ -116,56 +113,57 @@ label {
     right: 11px;
     top: 16px;
 }
-  
+
 .menu-content {
     width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
     left: 100%;
-    /*leftの値を変更してメニューを画面外へ*/
     z-index: 80;
     background-color: #3584BB;
     transition: all 0.5s;
-    /*アニメーション設定*/
 }
-  
+
 #menu-btn-check:checked~.menu-content {
     left: 0;
-    /*メニューを画面内へ*/
 }
 
-
-nav ul{
+nav ul {
     margin: 0 auto;
     padding: 0;
     text-align: center;
-    }
-    nav ul li{
+}
+
+nav ul li {
     display: inline-block;
     position: relative;
     padding-right: 15px;
     margin-right: 10px;
-    }
-    nav ul li a::after,
-    nav ul li a::before {
+}
+
+nav ul li a::after,
+nav ul li a::before {
     display: block;
     content: ”;
     position: absolute;
-    }
-    nav ul li a::after {
+}
+
+nav ul li a::after {
     top: 10%;
     right: 0;
     width: 13px;
     height: 13px;
     background-color: #ccc;
     border-radius: 100%;
-    }
-    nav ul li a.current::after,
-    nav ul li a:hover:after{
+}
+
+nav ul li a.current::after,
+nav ul li a:hover:after {
     background-color: #3498db;
-    }
-    nav ul li a::before {
+}
+
+nav ul li a::before {
     z-index: 2;
     top: 40%;
     right: 5px;
@@ -173,62 +171,60 @@ nav ul{
     height: 5px;
     border-right: 1px solid #fff;
     border-bottom: 1px solid #fff;
-    -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    }
-    nav ul li a{
+}
+
+nav ul li a {
     text-decoration: none;
-    color:#aaa;
+    color: #aaa;
     display: inline-block;
     width: 100%;
-    }
-    nav ul li a.current{
-    color:#555;
-    }
-    nav ul li a:hover{
-    color:#555;
-    }
+}
 
+nav ul li a.current {
+    color: #555;
+}
 
-    .user_input {
-        position: relative;
-        font-size: 1rem;
-        line-height: 1.8;
-      }
-      
-      .FlexTextarea__dummy {
-        overflow: hidden;
-        visibility: hidden;
-        box-sizing: border-box;
-        padding: 5px 15px;
-        min-height: 120px;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        border: 1px solid;
-      }
-      
-      #user_input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: block;
-        overflow: hidden;
-        box-sizing: border-box;
-        padding: 5px 15px;
-        width: 100%;
-        height: 100%;
-        background-color: transparent;
-        border: 1px solid #b6c3c6;
-        border-radius: 4px;
-        color: inherit;
-        font: inherit;
-        letter-spacing: inherit;
-        resize: none;
-      }
-      
-      #user_input:focus {
-        box-shadow: 0 0 0 4px rgba(235, 242, 243, 0.3);
-        outline: 0;
-      }
-  
+nav ul li a:hover {
+    color: #555;
+}
+
+.user_input {
+    width: 50%; /* 幅を50%に設定 */
+    min-width: 200px; /* 最小幅を200pxに設定 */
+    max-width: 600px; /* 最大幅を600pxに設定 */
+    margin: 0 auto; /* 中央揃え */
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.FlexTextarea__dummy {
+    overflow: hidden;
+    visibility: hidden;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    min-height: 120px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    border: 1px solid;
+}
+
+.user_input textarea {
+    width: 100%; /* 幅を100%に設定 */
+    min-height: 50px; /* 最小の高さ */
+    overflow: hidden; /* 余分なスクロールバーを表示しない */
+    resize: vertical; /* 垂直方向のみリサイズ可能に */
+    border: 1px solid #b6c3c6;
+    border-radius: 4px;
+    padding: 5px 15px;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+}
+
+#user_input textarea:focus {
+    box-shadow: 0 0 0 4px rgba(235, 242, 243, 0.3);
+    outline: 0;
+}

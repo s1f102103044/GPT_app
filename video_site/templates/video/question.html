@@ -51,7 +51,9 @@
     <ul>
     <li><a href="{% url 'top' %}">トップページ</a></li>
     <li><a class="" href="{% url 'question' %}">Question Page</a></li>
+    {% if not user.is_authenticated %}
     <li><a href="{% url 'user_login' %}">ログイン</a></li>
+    {% endif %}
     <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
     <li><a href="#">ヘルプ</a></li>
     <li><a href="#">問い合わせ</a></li>
@@ -74,17 +76,16 @@
     <form method="post">
         {% csrf_token %}
         <label for="user_input">↓Your Question↓</label>
-        <div class = "user_input">
-            <div class="FlexTextarea__dummy" aria-hidden="true"></div>
-            <input type="text" id="user_input" name="user_input">
+        <div class="user_input">
+            <textarea id="user_input" name="user_input"></textarea>
         </div>
         
-        <button type="submit">Ask GPT-3</button>
+        <button type="submit">Ask GPT-4</button>
     </form>
 
     {% if answer %}
     <div>
-        <p><strong>Answer from GPT-3:</strong></p>
+        <p><strong>Answer from GPT-4:</strong></p>
         <p>{{ answer|safe }}</p>
     </div>
     {% endif %}

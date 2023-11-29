@@ -2,13 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
-from django.shortcuts import render
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm 
-
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import Conversation
@@ -19,20 +16,8 @@ import requests  # TMDb APIのリクエストに使用します
 
 import openai
 
-'''
-def index(request):
-	context = {
-        "articles": [
-            {
-                "id": 1,
-                "title": "Post 01",
-                "body": "test post.\nLorem ipsum dolor sit amet, \nconsectetur adipiscing elit,\n sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n", 
-                "posted_at": timezone.now # option
-            }
-        ]
-    }
-	return render(request, 'video/index.html', context)
-'''
+# 環境変数からAPIキーを読み込む
+openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
 
 def index(request):
     if request.user.is_authenticated:
@@ -48,23 +33,17 @@ def top(request):
     recommended_movies = []
     if user_preferences:
         api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
-        # 例として、ユーザーが好むジャンルに基づく映画を検索する
         genre = user_preferences.get('genre')
         url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre}'
         response = requests.get(url)
         movies = response.json().get('results', [])
+        recommended_movies = [{'title': movie['title'], 'image_url': movie['poster_path']} for movie in movies]
     else:
         movies = []
-    
-    # セッションから推薦映画のリストを取得
-    recommended_movies = request.session.get('recommended_movies', [])
 
     return render(request, 'video/top.html', {'recommended_movies': recommended_movies})
 
-'''
-def question(request):
-	return render(request, 'video/question.html')
-'''
+
 def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
@@ -74,14 +53,24 @@ def question(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
-            # ユーザーがフォームに入力したデータを取得
-            genre = form.cleaned_data.get('genre')
-            director = form.cleaned_data.get('director')
-            actor = form.cleaned_data.get('actor')
+            user_input = form.cleaned_data.get('user_input')
+
+            # OpenAI GPT-3に質問を送信して応答を取得
+            try:
+                response = openai.ChatCompletion.create(
+                    model="gpt-4-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant."},
+                        {"role": "user", "content": user_input}
+                    ]
+                )
+                answer = response.choices[0].message['content']
+            except Exception as e:
+                answer = str(e)  # エラーメッセージをキャッチ
 
             # TMDb APIを呼び出して映画の推薦情報を取得
             api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
-            url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={genre}'
+            url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={user_input}'
             response = requests.get(url)
             movies = response.json().get('results', [])
 
@@ -90,24 +79,21 @@ def question(request):
 
             # ユーザーの好みをセッションに保存
             request.session['user_preferences'] = {
-                'genre': genre,
-                'director': director,
-                'actor': actor
+                'genre': user_input,  # ここではユーザー入力をジャンルとして扱う
+                'director': '',  # 監督や俳優に関する情報は省略
+                'actor': ''
             }
-
-            # TMDb APIを使用して映画データを取得
-            movies_data = get_movies_data(genre, director, actor)
-            request.session['recommended_movies'] = movies_data
 
             # 新規ユーザーのマークを削除
             request.session['is_new_user'] = False
 
-            # ユーザーをtopビューにリダイレクト
-            return redirect('top')
+            return render(request, 'video/question.html', {'form': form, 'answer': answer, 'is_new_user': is_new_user})
     else:
         form = QuestionForm()
 
     return render(request, 'video/question.html', {'form': form, 'is_new_user': is_new_user})
+
+
 
 def get_movies_data(genre, director, actor):
     api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
