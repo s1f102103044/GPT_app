@@ -177,4 +177,11 @@ def format_response(text):
     formatted_text = text.replace("。", "。<br>")
     return formatted_text
 
+def help(request):
+    return render(request,'video/help.html')
 
+def info(request):
+    return render(request,'video/info.html')
+
+def license(request):
+    return render(request,'video/license.html')
