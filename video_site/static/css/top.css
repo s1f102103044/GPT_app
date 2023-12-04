@@ -197,3 +197,16 @@ nav ul{
 .cinema span {
   color: rgb(125, 201, 255);
 }
+
+
+.slider{
+  display:flex;
+  overflow-x:scroll;
+  
+  text-align: center;
+}
+
+/*.slider li{
+  width:35vw;
+  padding:2vw;
+}
