@@ -16,7 +16,11 @@ header {
   section h2 {
     color: #ffffff
   }
-  
+
+  section h3 {
+    color: #ffffff
+  }
+
   section p {
     color: #ffffff
   }
@@ -197,3 +201,16 @@ header {
   .cinema span {
     color: rgb(125, 201, 255);
   }
+
+  .listcolor{
+    list-style-position: inside;
+    color: #ffffff;
+  }
+
+  .listcolor span {
+    　color: #ffffff;
+  }
+
+  
+
+
