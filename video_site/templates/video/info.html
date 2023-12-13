@@ -79,7 +79,7 @@
 -->
  <section>
     {% if user.is_authenticated %}
-    <p style="text-align: center ; color: rgb(180, 48, 48); font-size: large;">こんにちは、{{ user.username }}さん！</p>
+    <p style="text-align: center ; color: rgb(180, 48, 48); font-size: large;"></p>
     {% else %}
     <p>ログインをしてください。</p>
     {% endif %}
@@ -96,21 +96,20 @@
     {% endfor %}
 </ul>
 {% else %}
-<h2 style="color: chocolate;">問い合わせ</h2>
+<h2 style="color: rgb(255, 255, 255);">＜問い合わせ＞</h2>
 {% endif %}
 
-    <h2>お問い合わせ</h2>
     <p>基本的使い方、味方については以下のページにて記載してあります。</p>
     <p>また、本サイトはChatGPTを基軸としたサービスであるためquestionページにて質問すると解決する場合もあります</p>
-    <a href="{% url 'help' %}">ヘルプ</a>
+    <a href="{% url 'help' %}" style="color:rgb(249, 202, 74)">ヘルプ</a>
     <p>もし何か困ったことがありましたら以下の各お問い合わせ先にご連絡ください。</p>
-        <li><a href="mailto:s1f102103954@iniad.org">お問い合わせ先はこちらへ(送信日時によっては対応が遅れる場合があります。ご了承ください。)</a></li>
+        <li><a href="mailto:s1f102103954@iniad.org" style="color:rgb(255, 206, 81)">お問い合わせ先はこちらへ(送信日時によっては対応が遅れる場合があります。ご了承ください。)</a></li>
     <p>また、以下問い合わせフォームもご利用ください</p>
-        <form id="contact">
+        <form id="contact" >
             <div class="container">
               <div class="head">
                 <h2>お問い合わせフォーム</h2>
-              </div>
+              </div >
               <input type="text" name="name" placeholder="Name" /><br />
               <input  type="email" name="email" placeholder="Email" /><br />
               <textarea type="text" name="message" placeholder="Message"></textarea><br />

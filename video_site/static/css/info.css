@@ -4,7 +4,7 @@ header {
   }
   
   body {
-    background-color: rgb(0, 3, 6);
+    background-color: rgb(0, 0, 0);
   }
    .cinema h1{
     color: #FFFFFF;
@@ -60,7 +60,7 @@ header {
   }
   
   #menu-btn-check:checked~.menu-btn span {
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(0, 0, 0, 0);
     /*メニューオープン時は真ん中の線を透明にする*/
   }
   
@@ -202,7 +202,7 @@ header {
 
   body {
     padding-top:25px;
-    background-color:#454545;
+    background-color:#000000;
     margin-left:10px;
     margin-right:10px;
   }
