@@ -86,12 +86,12 @@
     {% endif %}
 
     {% if recommended_movies %}
-<h2>お勧めの映画</h2>
+<h2>↓おすすめの映画↓</h2>
 <ul class = "slider">
     {% for movie in recommended_movies %}
     <li>
         <h3>{{ movie.title }}</h3>
-        <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}" width="300" height="400">
         <p>{{ movie.overview }}</p>
     </li>
     {% endfor %}
@@ -100,12 +100,13 @@
 <p>お勧めの映画はまだありません。</p>
 {% endif %}
 
-    <h2>見出し2.0</h2>
-    <p>コンテンツの内容</p>
+    <h2></h2>
+    
+    <p></p>
  </section>
  </article>
 
- <footer>フッター</footer>
+ <footer></footer>
  </body>
 </html>
 

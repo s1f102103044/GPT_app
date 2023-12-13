@@ -27,11 +27,11 @@ footer {
 
 .menu-btn {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   display: flex;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   justify-content: center;
   align-items: center;
   z-index: 90;
@@ -100,7 +100,7 @@ footer {
   display: block;
   width: 100%;
   font-size: 15px;
-  box-sizing: border-box;
+  box-sizing:border-box;
   color: #ffffff;
   text-decoration: none;
   padding: 9px 15px 10px 0;
