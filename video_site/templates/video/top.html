@@ -12,6 +12,7 @@
   <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
   <!-- [endif] -->
   <script src="main.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
   <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 </head>
 
@@ -75,38 +76,53 @@
     <div style="text-align: center" class="cinema">
         <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
     </div>
-<!----
+    <main>
+        <!-- GPTを強調したセクション -->
+        <section class="gpt-highlight">
+          <h1>あなたのためにAIが選ぶ映画</h1>
+          <p>AIによるパーソナライズされた映画のおすすめをお楽しみください。</p>
+        </section>
+      
+        <!-- 映画のおすすめリスト -->
+        <section class="movie-recommendations">
+            <h2>あなたへのおすすめ</h2>
+            <div class="movie-list-container">
+              <ul class="movie-list">
+                {% if recommended_movies %}
+                {% for movie in recommended_movies %}
+            <li class="movie">
+            <!-- ここで onclick イベントに movie.id を渡す -->
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}" onclick="showMovieDetails({{ movie.id }});" style="cursor:pointer;">
+                </li>
+                {% endfor %}
 
--->
- <section>
-    {% if user.is_authenticated %}
-    <p style="text-align: center ; color: rgb(180, 48, 48); font-size: large;">こんにちは、{{ user.username }}さん！</p>
-    {% else %}
-    <p>ログインをしてください。</p>
-    {% endif %}
+              
+                {% else %}
+                  <p>映画のおすすめはログイン後に表示されます。</p>
+                  <!-- 未登録ユーザーに新規登録を促すセクション -->
+                  <p><a href="{% url 'register' %}" class="register-link">新規登録はこちらから</a></p>
+                {% endif %}
+              </ul>
+            </div>
+          </section>
+        </main>
+<!--e7f3afa7f6bc747e9a10789a5ca62773-->
+<script src="{% static 'js/scripts.js' %}"></script>
 
-    {% if recommended_movies %}
-<h2>↓おすすめの映画↓</h2>
-<ul class = "slider">
-    {% for movie in recommended_movies %}
-    <li>
-        <h3>{{ movie.title }}</h3>
-        <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}" width="300" height="400">
-        <p>{{ movie.overview }}</p>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>お勧めの映画はまだありません。</p>
-{% endif %}
+<div id="movie-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeModal()">&times;</span>
+      <div class="movie-image">
+        <img id="modal-movie-image" src="" alt="Movie Poster">
+      </div>
+      <div class="movie-details">
+        <h3 id="modal-movie-title"></h3>
+        <p id="modal-movie-overview"></p>
+      </div>
+    </div>
+  </div>
+  
 
-    <h2></h2>
-    
-    <p></p>
- </section>
- </article>
-
- <footer></footer>
- </body>
+</body>
 </html>
 

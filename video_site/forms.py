@@ -11,3 +11,4 @@ class QuestionForm(forms.Form):
     actor = forms.CharField(label='俳優', max_length=100)
     # その他必要なフィールドを追加...
     #new_user_question = forms.CharField(label='新規ユーザーの質問', max_length=100, required=False)
+
