@@ -90,8 +90,9 @@
 <ul class = "slider">
     {% for movie in recommended_movies %}
     <li>
-        <h3>{{ movie.title }}</h3>
+        
         <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}" width="300" height="400">
+        <h3 style="color: aliceblue;">{{ movie.title }}</h3>
         <p>{{ movie.overview }}</p>
     </li>
     {% endfor %}
