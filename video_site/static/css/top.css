@@ -210,3 +210,143 @@ nav ul{
   width:35vw;
   padding:2vw;
 }
+*/
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.close-button {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.movie-image img {
+  width: 300px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.movie-details {
+  flex-grow: 1;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* 画像間のスペースを調整 */
+}
+
+.movie {
+  flex-basis: calc(50% - 20px); /* 画像の幅を半分にし、gapの分を引く */
+}
+
+.movie img {
+  width: 150px; /* 画像の幅を半分にする */
+  height: auto; /* 画像の高さを自動調整 */
+  cursor: pointer; /* ポインターを変更してクリック可能であることを示す */
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.movie {
+  flex: 0 0 auto;
+  margin-right: 16px; /* 映画間のスペースを設定 */
+}
+
+.movie img {
+  width: 160px; /* 画像の幅を調整 */
+  height: auto;
+  border-radius: 4px; /* 画像の角を丸くする */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加して立体感を出す */
+  transition: transform 0.3s ease; /* ホバー時のアニメーションを設定 */
+}
+
+.movie img:hover {
+  transform: scale(1.05); /* ホバー時に画像を大きく表示 */
+}
+
+/* スクロールバーをカスタマイズ */
+.movie-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.movie-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 4px;
+}
+
+.movie-list::-webkit-scrollbar-track {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.movie-list-container {
+  width: 100%; /* コンテナの幅を100%に設定 */
+  overflow-x: auto; /* 横スクロールを可能にする */
+  white-space: nowrap; /* 横に並ぶ要素を折り返さない */
+  padding-left: 16px; /* 左のパディングを設定 */
+}
+
+
+.movie-list {
+  display: inline-block;
+  padding: 0; /* パディングをゼロに設定 */
+  margin: 0; /* マージンをゼロに設定 */
+}
+
+.movie {
+  display: inline-block;
+  margin-right: 16px; /* 映画間のスペースを設定 */
+  width: auto; /* 画像の幅を自動調整 */
+}
+
+.movie img {
+  display: block;
+  max-width: 100%; /* 画像の最大幅を親要素に合わせる */
+  height: auto; /* 高さを自動調整 */
+  border-radius: 4px; /* 角を丸くする */
+}
+
+/* スクロールバーのスタイルを設定 */
+.movie-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.movie-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+.movie-list::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.2);
+}
