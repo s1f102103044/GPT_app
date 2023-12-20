@@ -100,7 +100,7 @@
                 {% else %}
                   <p>映画のおすすめはログイン後に表示されます。</p>
                   <!-- 未登録ユーザーに新規登録を促すセクション -->
-                  <p><a href="{% url 'register' %}" class="register-link">新規登録はこちらから</a></p>
+                  <p style="text-align: center"><a href="{% url 'register' %}" class="btn btn-gradient"><span>新規登録はこちらから</span></a></p>
                 {% endif %}
               </ul>
             </div>
@@ -121,7 +121,9 @@
       </div>
     </div>
   </div>
-  
+<div>
+  <p style="text-align: center"><a href="{% url 'question' %}" class="btn btn-gradient"><span>Questionpage</span></a></p>
+</div>
 
 </body>
 </html>
