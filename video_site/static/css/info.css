@@ -285,6 +285,9 @@ header {
     width:30%;
     color:#fff;
   }
+
+
+  
   button:hover, .button:hover {
     background:#19a08c;
   }
@@ -295,7 +298,7 @@ header {
       padding-top:10px;
       padding-bottom:10px;
       background-color:#d89c9c;
-      width: 80%;
+      width: 40%;
       margin:auto;
       color: #FAFAFA;
       -webkit-border-radius:6px;
