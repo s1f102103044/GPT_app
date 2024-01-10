@@ -16,6 +16,11 @@ import requests  # TMDb APIのリクエストに使用します
 
 import openai
 
+#import logging
+
+#logger = logging.getLogger(__views.py__)  # __name__は現在のファイル名（モジュール名）になります
+
+
 # 環境変数からAPIキーを読み込む
 openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
 
@@ -48,6 +53,24 @@ def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
 def question(request):
+    try:
+        # GPT-4に質問を送信して応答を取得
+        response = openai.ChatCompletion.create(
+            model="gpt-4-32k-0613",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": "ここに質問内容"}  # ここに固定の質問を設定
+            ]
+        )
+        answer = response.choices[0].message['content']
+    except Exception as e:
+        answer = str(e)  # エラーメッセージをキャッチ
+
+    return render(request, 'video/question.html', {'answer': answer})
+
+
+'''
+def question(request):
     is_new_user = request.session.get('is_new_user', False)
 
     if request.method == 'POST':
@@ -58,7 +81,7 @@ def question(request):
             # OpenAI GPT-3に質問を送信して応答を取得
             try:
                 response = openai.ChatCompletion.create(
-                    model="gpt-4-turbo",
+                    model="gpt-4-32k-0613",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant."},
                         {"role": "user", "content": user_input}
@@ -92,7 +115,7 @@ def question(request):
         form = QuestionForm()
 
     return render(request, 'video/question.html', {'form': form, 'is_new_user': is_new_user})
-
+'''
 
 
 def get_movies_data(genre, director, actor):
