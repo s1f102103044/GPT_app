@@ -21,9 +21,6 @@ import openai
 #logger = logging.getLogger(__views.py__)  # __name__は現在のファイル名（モジュール名）になります
 
 
-# 環境変数からAPIキーを読み込む
-openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
-
 def index(request):
     if request.user.is_authenticated:
         return redirect('top')
@@ -53,16 +50,23 @@ def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
 def question(request):
+    openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
+    openai.api_base = "https://api.openai.iniad.org/api/v1"
+    answer = ""
+
     try:
-        # GPT-4に質問を送信して応答を取得
-        response = openai.ChatCompletion.create(
-            model="gpt-4-32k-0613",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "ここに質問内容"}  # ここに固定の質問を設定
-            ]
-        )
-        answer = response.choices[0].message['content']
+        if request.method == "POST":
+            user_input = request.POST.get("user_input")
+            # GPT-4に質問を送信して応答を取得
+            response = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "あなたは映画をおすすめするアシスタントです。次の要求に具体的に答えてください。"},
+                    {"role": "user", "content": user_input}
+                ]
+            )
+            answer = response.choices[0].message['content']
+
     except Exception as e:
         answer = str(e)  # エラーメッセージをキャッチ
 
