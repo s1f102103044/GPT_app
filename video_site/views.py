@@ -49,13 +49,17 @@ def updated(request, article_id):
 
 def question(request):
     is_new_user = request.session.get('is_new_user', False)
+    print("Is new user:", is_new_user)  # デバッグ情報
 
     if request.method == 'POST':
+        print("Received POST request")  # デバッグ情報
         form = QuestionForm(request.POST)
         if form.is_valid():
+            print("Form is valid")  # デバッグ情報
             user_input = form.cleaned_data.get('user_input')
+            print("User input:", user_input)  # デバッグ情報
 
-            # OpenAI GPT-3に質問を送信して応答を取得
+            # OpenAI GPT-4に質問を送信
             try:
                 response = openai.ChatCompletion.create(
                     model="gpt-4-turbo",
@@ -65,31 +69,36 @@ def question(request):
                     ]
                 )
                 answer = response.choices[0].message['content']
+                print("GPT-4 response:", answer)  # デバッグ情報
             except Exception as e:
-                answer = str(e)  # エラーメッセージをキャッチ
+                answer = str(e)
+                print("GPT-4 error:", answer)  # デバッグ情報
 
-            # TMDb APIを呼び出して映画の推薦情報を取得
-            api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
-            url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={user_input}'
-            response = requests.get(url)
-            movies = response.json().get('results', [])
+            # TMDb APIを呼び出し
+            try:
+                api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
+                url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={user_input}'
+                response = requests.get(url)
+                movies = response.json().get('results', [])
+                print("Movies data:", movies)  # デバッグ情報
+            except Exception as e:
+                print("TMDb API error:", str(e))  # デバッグ情報
 
-            # 映画の推薦情報をセッションに保存
+            # セッションに情報を保存
             request.session['recommended_movies'] = movies
-
-            # ユーザーの好みをセッションに保存
             request.session['user_preferences'] = {
-                'genre': user_input,  # ここではユーザー入力をジャンルとして扱う
-                'director': '',  # 監督や俳優に関する情報は省略
+                'genre': user_input,
+                'director': '',
                 'actor': ''
             }
 
-            # 新規ユーザーのマークを削除
             request.session['is_new_user'] = False
-
             return render(request, 'video/question.html', {'form': form, 'answer': answer, 'is_new_user': is_new_user})
+        else:
+            print("Form errors:", form.errors)  # デバッグ情報
     else:
         form = QuestionForm()
+        print("GET request - New form")  # デバッグ情報
 
     return render(request, 'video/question.html', {'form': form, 'is_new_user': is_new_user})
 
