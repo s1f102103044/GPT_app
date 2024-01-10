@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <style>
+    
+  </style>
   <meta charset="utf-8">
   <title>CinemaCompass</title>
   <meta name="description" content="ディスクリプションを入力">
@@ -9,6 +12,7 @@
   <link rel="stylesheet" href="{% static 'css/top.css' %}">
   <!-- [if lt IE 9] -->
   <script src="{% static 'js/top.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
   <!-- [endif] -->
   <script src="main.js"></script>
@@ -19,7 +23,7 @@
 <body style="text-align: center;">
 
   <!----- header----->
-  <header>
+  <header id="header">
       <div class="ber">
           <input type="checkbox" id="menu-btn-check">
           <label for="menu-btn-check" class="menu-btn"><span></span></label>
@@ -52,12 +56,17 @@
           </div>
           <!--ここまでメニュー-->
       </div>
+      
 
   </header>
   <!----- /header ----->
   <!----- main ----->
+  
+ <body background="{% static 'images/background1.png' %}">
+  
+  <div class="bg"></div>
   <nav>
-    <ul>
+    <ul id="g-navi">
     <li><a href="{% url 'top' %}">トップページ</a></li>
     <li><a href="{% url 'question' %}">Question Page</a></li>
     {% if not user.is_authenticated %}
@@ -68,18 +77,14 @@
     <li><a href="{% url 'info' %}">問い合わせ</a></li>
     </ul>
 </nav>
+<div style="text-align: center" class="cinema">
+  <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
+</div>
 
-
- <body>
-
-
-    <div style="text-align: center" class="cinema">
-        <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
-    </div>
     <main>
         <!-- GPTを強調したセクション -->
         <section class="gpt-highlight">
-          <h1>あなたのためにAIが選ぶ映画</h1>
+          <h1 style="color:aliceblue;">あなたのためにAIが選ぶ映画</h1>
           <p>AIによるパーソナライズされた映画のおすすめをお楽しみください。</p>
         </section>
       

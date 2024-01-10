@@ -56,27 +56,26 @@
   </header>
   <!----- /header ----->
   <!----- main ----->
-  <nav>
-    <ul>
-    <li><a href="{% url 'top' %}">トップページ</a></li>
-    <li><a href="{% url 'question' %}">Question Page</a></li>
-    <li><a href="{% url 'user_login' %}">ログイン</a></li>
-    <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
-    <li><a href="{% url 'help' %}">ヘルプ</a></li>
-    <li><a href="{% url 'info' %}">問い合わせ</a></li>
-    </ul>
-</nav>
+  
 
 
- <body>
+ <body background="{% static 'images/background1.png' %}" width="500" height="500">
+    <nav>
+        <ul>
+        <li><a href="{% url 'top' %}">トップページ</a></li>
+        <li><a href="{% url 'question' %}">Question Page</a></li>
+        <li><a href="{% url 'user_login' %}">ログイン</a></li>
+        <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
+        <li><a href="{% url 'help' %}">ヘルプ</a></li>
+        <li><a href="{% url 'info' %}">問い合わせ</a></li>
+        </ul>
+    </nav>
 
 
     <div style="text-align: center" class="cinema">
         <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
     </div>
-<!----
 
--->
  <section>
     {% if user.is_authenticated %}
     <p style="text-align: center ; color: rgb(180, 48, 48); font-size: large;"></p>
