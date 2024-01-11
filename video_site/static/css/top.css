@@ -35,7 +35,7 @@ footer {
   justify-content: center;
   align-items: center;
   z-index: 90;
-  background-color: #3584BB;
+  background-color: #3583bbbe;
 }
 
 .menu-btn span,
@@ -92,7 +92,7 @@ footer {
 }
 
 .menu-content ul li {
-  border-bottom: solid 1px #FFFFFF;
+  border-bottom: solid 1px #121111;
   list-style: none;
 }
 
@@ -127,7 +127,7 @@ footer {
   left: 100%;
   /*leftの値を変更してメニューを画面外へ*/
   z-index: 80;
-  background-color: #3584BB;
+  background-color: #3583bbf8;
   transition: all 0.5s;
   /*アニメーション設定*/
 }

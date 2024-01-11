@@ -89,13 +89,13 @@
       <main>
         <!-- GPTを強調したセクション -->
         <section class="gpt-highlight">
-          <h1 style="color:aliceblue;">AIと一緒に楽しい映画を探そう</h1>
+          <h3 style="color:aliceblue;">AIと一緒に楽しい映画を探そう</h3>
           <p>AIによるパーソナライズされた映画のおすすめをお楽しみください。</p>
         </section>
 
         <!-- 映画のおすすめリスト -->
         <section class="movie-recommendations">
-          <h2>あなたへのおすすめ</h2>
+          <h3 style="color: aliceblue;">▼あなたへのおすすめ▼</h3>
           <div class="movie-list-container">
             <ul class="movie-list">
               {% if recommended_movies %}
@@ -125,7 +125,7 @@
         <div class="modal-content">
           <span class="close-button" onclick="closeModal()">&times;</span>
           <div class="movie-image">
-            <img id="modal-movie-image" src="" alt="Movie Poster">
+            <img id="modal-movie-image"  alt="Movie Poster">
           </div>
           <div class="movie-details">
             <h3 id="modal-movie-title"></h3>
@@ -134,7 +134,7 @@
         </div>
       </div>
       <div>
-        <p style="text-align: center"><a href="{% url 'question' %}" class="btn btn-gradient"><span>質問する</span></a></p>
+        <p style="text-align: center"><a href="{% url 'question' %}" class="btn btn-gradient"><span>映画を探す</span></a></p>
       </div>
         </form>
       </div>

@@ -55,12 +55,13 @@
             <p style="text-align:center; color: aliceblue;" class="fsize">ユーザー登録</p>
             {{ form.as_p }}
             <p style="text-align: center;font-weight:bold;"><button  type="submit">登録</button></p>
+            <div style="text-align: center" class="login">
+                <a href="{% url 'user_login' %}">既にアカウントをお持ちの方はこちら▶</a>
+            </div>
         </form>
     </div>
     
-    <div style="text-align: center" class="login">
-        <a href="{% url 'user_login' %}">すでにアカウントを持っている方はこちら</a>
-    </div>
+    
 </body>
 
 </html>

@@ -10,8 +10,10 @@
     <title>CinemaCompass - ログイン</title>
 </head>
 
-<body style="text-align: center ; color: black;">
-    <h2 style="text-align: center; color: rgb(255, 255, 255);">保存された会話</h2>
+<body background="{% static 'images/back3.png' %}" width="500" height="500" style="text-align: center ; color: black;">
+    <div class="container">
+        <form method="post">
+    <h2 style="text-align: center; color: rgb(255, 255, 255);">▼保存された会話▼</h2>
 
     {% if delete_mode %}
     <form style="color: aliceblue;" method="post" action="{% url 'delete_conversations' %}">
@@ -28,10 +30,13 @@
     {% endfor %}
     <form method="post" action="{% url 'toggle_delete_mode' %}">
         {% csrf_token %}
-        <input type="submit" value="保存された会話を削除する">
+        <input class="favorite style" type="submit" value="保存された会話を削除する">
     </form>
+    <h1></h1>
     {% endif %}
-    <a  style="color: aqua;"  href="{% url 'question_page' %}" class="btn btn-primary">GPTの質問ページに戻る</a>
+    <a href="{% url 'question_page' %}" class="favorite style1" style="color: rgba(244, 239, 239, 0.918);" ;class="btn btn-primary">◀質問ページに戻る</a>
+        </form>
+    </div>
 </body>
 </html>
 

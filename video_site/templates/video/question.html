@@ -82,15 +82,19 @@
 
                 <form style="text-align: center" class="question-form" method="post">
                     {% csrf_token %}
-                    <label class="question-label" for="user_input">↓質問を自由に入力してください↓</label>
+                    <label style="color: rgba(240, 248, 255, 0.863);" class="question-label" for="user_input">AIがあなたと一緒に映画を探します</label>
+                    <label class="question-label" for="user_input">▼質問を自由に入力してください▼</label>
                     <div class="user_input">
                         <textarea id="user_input" name="user_input"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit">Ask GPT-4</button>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <button class="favorite styled" type="submit">Ask GPT-4</button>
+                    
                 </form>
+
+                <h5> </h5>
+                
 
                 {% if answer %}
                 <div class="answer-section">
@@ -103,13 +107,13 @@
                     <input type="hidden" name="user_input" value="{{ user_input }}">
                     <input type="hidden" name="answer" value="{{ answer }}">
                     <div class="form-group">
-                        <input type="submit" value="この会話を保存">
+                        <input class="favorites styled1" type="submit" value="この会話を保存">
                     </div>
                     
                 </form>
 
                 <div class="form-group save">
-                    <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
+                    <a href="{% url 'view_conversations' %}">保存した会話を見る▶</a>
                 </div>
                 <!--<a style="color: rgb(80, 142, 142);" href="{% url 'top' %}">トップページへ戻る</a>-->
          </form>
