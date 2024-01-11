@@ -92,8 +92,8 @@
 
                 {% if answer %}
                 <div>
-                    <p><strong>Answer from GPT-4:</strong></p>
-                    <p>{{ answer|safe }}</p>
+                    <p style="color: aliceblue;"><strong>Answer from GPT-4:</strong></p>
+                    <p style="color: aliceblue;">{{ answer|safe }}</p>
                 </div>
                 {% endif %}
                 <form method="post" action="{% url 'save_conversation' %}">
