@@ -228,3 +228,8 @@ nav ul li a:hover {
     box-shadow: 0 0 0 4px rgba(235, 242, 243, 0.3);
     outline: 0;
 }
+
+.container {
+    background-color: rgba(0, 0, 0, 0.515); /* Semi-transparent black background */
+    padding: 10px;
+  }

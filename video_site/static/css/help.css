@@ -3,7 +3,7 @@ header {
   }
   
   body {
-    background-color: rgb(0, 3, 6);
+    background-color: rgba(0, 3, 6, 0.518);
   }
    .cinema h1{
     color: #FFFFFF;
@@ -245,3 +245,7 @@ summary{
   
 
 
+.container {
+  background-color: rgba(0, 0, 0, 0.515); /* Semi-transparent black background */
+  padding: 10px;
+}

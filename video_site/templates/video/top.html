@@ -1,10 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <style>
-    
-  </style>
   <meta charset="utf-8">
   <title>CinemaCompass</title>
   <meta name="description" content="ディスクリプションを入力">
@@ -12,7 +10,8 @@
   <link rel="stylesheet" href="{% static 'css/top.css' %}">
   <!-- [if lt IE 9] -->
   <script src="{% static 'js/top.js' %}"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
   <!-- [endif] -->
   <script src="main.js"></script>
@@ -24,111 +23,123 @@
 
   <!----- header----->
   <header id="header">
-      <div class="ber">
-          <input type="checkbox" id="menu-btn-check">
-          <label for="menu-btn-check" class="menu-btn"><span></span></label>
-          <!--ここからメニュー-->
-          <div style="text-align: center;" class="menu-content">
-              <ul>
-                 <li>
-                    <a href="{% url 'top' %}">トップページ</a>
-                 </li>
-                  <li>
-                      <a href="{% url 'question' %}">Question Page</a>
-                  </li>
+    <div class="ber">
+      <input type="checkbox" id="menu-btn-check">
+      <label for="menu-btn-check" class="menu-btn"><span></span></label>
+      <!--ここからメニュー-->
+      <div style="text-align: center;" class="menu-content">
+        <ul>
+          <li>
+            <a href="{% url 'top' %}">トップページ</a>
+          </li>
+          <li>
+            <a href="{% url 'question' %}">Question Page</a>
+          </li>
 
-                  <li>
-                      <a href="{% url 'user_login' %}">ログイン</a>
-                  </li>
-                  <li>
-                      <a href="{% url 'user_logout' %}">ログアウト</a>
-                  </li>
-                  <li>
-                      <a href="{% url 'license' %}">ライセンス</a>
-                  </li>
-                  <li>
-                      <a href="{% url 'help' %}">ヘルプ</a>
-                  </li>
-                  <li>
-                      <a href="{% url 'info' %}">お問い合わせ</a>
-                  </li>
-              </ul>
-          </div>
-          <!--ここまでメニュー-->
+          <li>
+            <a href="{% url 'user_login' %}">ログイン</a>
+          </li>
+          <li>
+            <a href="{% url 'user_logout' %}">ログアウト</a>
+          </li>
+          <li>
+            <a href="{% url 'license' %}">ライセンス</a>
+          </li>
+          <li>
+            <a href="{% url 'help' %}">ヘルプ</a>
+          </li>
+          <li>
+            <a href="{% url 'info' %}">お問い合わせ</a>
+          </li>
+        </ul>
       </div>
-      
+      <!--ここまでメニュー-->
+    </div>
+
 
   </header>
   <!----- /header ----->
   <!----- main ----->
-  
- <body background="{% static 'images/background1.png' %}">
-  
-  <div class="bg"></div>
-  <nav>
-    <ul id="g-navi">
-    <li><a href="{% url 'top' %}">トップページ</a></li>
-    <li><a href="{% url 'question' %}">Question Page</a></li>
-    {% if not user.is_authenticated %}
-    <li><a href="{% url 'user_login' %}">ログイン</a></li>
-    {% endif %}
-    <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
-    <li><a href="{% url 'help' %}">ヘルプ</a></li>
-    <li><a href="{% url 'info' %}">問い合わせ</a></li>
-    </ul>
-</nav>
-<div style="text-align: center" class="cinema">
-  <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
-</div>
 
-    <main>
+  <body style="background-color: rgba(2, 12, 23, 0.701);" ; background="{% static 'images/back3.png' %}" width="1500"
+    height="500">
+
+  
+      <div class="bg"></div>
+      <nav>
+        <ul id="g-navi">
+          <li><a href="{% url 'top' %}">トップページ</a></li>
+          <li><a href="{% url 'question' %}">Question Page</a></li>
+          {% if not user.is_authenticated %}
+          <li><a href="{% url 'user_login' %}">ログイン</a></li>
+          {% endif %}
+          <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
+          <li><a href="{% url 'help' %}">ヘルプ</a></li>
+          <li><a href="{% url 'info' %}">問い合わせ</a></li>
+        </ul>
+      </nav>
+
+      <div class="container">
+        <form method="post">
+      <div style="text-align: center" class="cinema">
+        <a href="{% url 'top' %}"><img src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
+      </div>
+      
+      
+      <main>
         <!-- GPTを強調したセクション -->
         <section class="gpt-highlight">
-          <h1 style="color:aliceblue;">あなたのためにAIが選ぶ映画</h1>
+          <h1 style="color:aliceblue;">AIと一緒に楽しい映画を探そう</h1>
           <p>AIによるパーソナライズされた映画のおすすめをお楽しみください。</p>
         </section>
-      
+
         <!-- 映画のおすすめリスト -->
         <section class="movie-recommendations">
-            <h2>あなたへのおすすめ</h2>
-            <div class="movie-list-container">
-              <ul class="movie-list">
-                {% if recommended_movies %}
-                {% for movie in recommended_movies %}
-            <li class="movie">
-            <!-- ここで onclick イベントに movie.id を渡す -->
-                <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}" onclick="showMovieDetails('{{ movie.id }}');" style="cursor:pointer;">
-                </li>
-                {% endfor %}
+          <h2>あなたへのおすすめ</h2>
+          <div class="movie-list-container">
+            <ul class="movie-list">
+              {% if recommended_movies %}
+              {% for movie in recommended_movies %}
+              <li class="movie">
+                <!-- ここで onclick イベントに movie.id を渡す -->
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}"
+                  onclick="showMovieDetails('{{ movie.id }}');" style="cursor:pointer;">
+              </li>
+              {% endfor %}
 
-              
-                {% else %}
-                  <p>映画のおすすめはログイン後に表示されます。</p>
-                  <!-- 未登録ユーザーに新規登録を促すセクション -->
-                  <p style="text-align: center"><a href="{% url 'register' %}" class="btn btn-gradient"><span>新規登録はこちらから</span></a></p>
-                {% endif %}
-              </ul>
-            </div>
-          </section>
-        </main>
-<!--e7f3afa7f6bc747e9a10789a5ca62773-->
-<script src="{% static 'js/scripts.js' %}"></script>
 
-<div id="movie-modal" class="modal" style="display:none;">
-    <div class="modal-content">
-      <span class="close-button" onclick="closeModal()">&times;</span>
-      <div class="movie-image">
-        <img id="modal-movie-image" src="" alt="Movie Poster">
+              {% else %}
+              <p>映画のおすすめはログイン後に表示されます。</p>
+              <!-- 未登録ユーザーに新規登録を促すセクション -->
+              <p style="text-align: center"><a href="{% url 'register' %}"
+                  class="btn btn-gradient"><span>新規登録はこちらから</span></a></p>
+              {% endif %}
+            </ul>
+          </div>
+        </section>
+      </main>
+      <!--e7f3afa7f6bc747e9a10789a5ca62773-->
+      <script src="{% static 'js/scripts.js' %}"></script>
+
+      <div id="movie-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <span class="close-button" onclick="closeModal()">&times;</span>
+          <div class="movie-image">
+            <img id="modal-movie-image" src="" alt="Movie Poster">
+          </div>
+          <div class="movie-details">
+            <h3 id="modal-movie-title"></h3>
+            <p id="modal-movie-overview"></p>
+          </div>
+        </div>
       </div>
-      <div class="movie-details">
-        <h3 id="modal-movie-title"></h3>
-        <p id="modal-movie-overview"></p>
+      <div>
+        <p style="text-align: center"><a href="{% url 'question' %}" class="btn btn-gradient"><span>質問する</span></a></p>
       </div>
-    </div>
-  </div>
-<div>
-  <p style="text-align: center"><a href="{% url 'question' %}" class="btn btn-gradient"><span>質問する</span></a></p>
-</div>
+        </form>
+      </div>
 
-</body>
+
+  </body>
+
 </html>

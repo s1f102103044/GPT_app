@@ -16,7 +16,7 @@
   <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 </head>
 
-<body style="text-align: center;">
+<body background="{% static 'images/back3.png' %}" width="500" height="500" style="text-align: center;">
 
   <!----- header----->
   <header>
@@ -69,7 +69,8 @@
 
 
  <body>
-
+    <div class="container">
+        <form method="post">
 
     <div style="text-align: center" class="cinema">
         <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
@@ -131,7 +132,9 @@
     <p>村上 世昇 Engineer s1f102103044@iniad.org</p>
     <p>後藤 達哉 Engineer:s1f102103190@iniad.org</p>
     <p>西 駿  Business:s1f102103954@iniad.org</p>
-</footer>    
+</footer>  
+        </form>
+    </div>  
 
  </body>
 </html>

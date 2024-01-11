@@ -3,7 +3,7 @@ header {
 }
 
 body {
-  background-color: rgb(0, 3, 6);
+  background-color: rgba(2, 12, 23, 0.24);
 }
  .cinema h1{
   color: #FFFFFF;
@@ -162,7 +162,7 @@ nav ul{
   right: 0;
   width: 13px;
   height: 13px;
-  background-color: #ccc;
+  background-color: #ffffff;
   border-radius: 100%;
   }
   nav ul li a.current::after,
@@ -182,7 +182,7 @@ nav ul{
   }
   nav ul li a{
   text-decoration: none;
-  color:#aaa;
+  color:#c1bebe;
   display: inline-block;
   width: 100%;
   }
@@ -439,4 +439,8 @@ a.btn-gradient {
 
 
 
+.container {
+  background-color: rgba(0, 0, 0, 0.515); /* Semi-transparent black background */
+  padding: 10px;
+}
 
