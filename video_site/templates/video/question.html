@@ -80,30 +80,35 @@
                 </form>
                 {% endif %}
 
-                <form  style="text-align: center"  method="post">
+                <form style="text-align: center" class="question-form" method="post">
                     {% csrf_token %}
-                    <label  for="user_input">↓質問を自由に入力してください↓</label>
+                    <label class="question-label" for="user_input">↓質問を自由に入力してください↓</label>
                     <div class="user_input">
                         <textarea id="user_input" name="user_input"></textarea>
                     </div>
 
-                    <button type="submit">Ask GPT-4</button>
+                    <div class="form-group">
+                        <button type="submit">Ask GPT-4</button>
+                    </div>
                 </form>
 
                 {% if answer %}
-                <div>
-                    <p style="color: aliceblue;"><strong>Answer from GPT-4:</strong></p>
-                    <p style="color: aliceblue;">{{ answer|safe }}</p>
+                <div class="answer-section">
+                    <p class="answer-label"><strong>Answer from GPT-4</strong></p>
+                    <p class="answer-content">{{ answer|safe }}</p>
                 </div>
                 {% endif %}
                 <form method="post" action="{% url 'save_conversation' %}">
                     {% csrf_token %}
                     <input type="hidden" name="user_input" value="{{ user_input }}">
                     <input type="hidden" name="answer" value="{{ answer }}">
-                    <input type="submit" value="この会話を保存">
+                    <div class="form-group">
+                        <input type="submit" value="この会話を保存">
+                    </div>
+                    
                 </form>
 
-                <div class="save">
+                <div class="form-group save">
                     <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
                 </div>
                 <!--<a style="color: rgb(80, 142, 142);" href="{% url 'top' %}">トップページへ戻る</a>-->
