@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
@@ -49,57 +50,66 @@
 </header>
 <nav>
     <ul>
-    <li><a href="{% url 'top' %}">トップページ</a></li>
-    <li><a class="" href="{% url 'question' %}">Question Page</a></li>
-    {% if not user.is_authenticated %}
-    <li><a href="{% url 'user_login' %}">ログイン</a></li>
-    {% endif %}
-    <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
-    <li><a href="{% url 'help' %}">ヘルプ</a></li>
-    <li><a href="{% url 'info' %}">問い合わせ</a></li>
+        <li><a href="{% url 'top' %}">トップページ</a></li>
+        <li><a class="" href="{% url 'question' %}">Question Page</a></li>
+        {% if not user.is_authenticated %}
+        <li><a href="{% url 'user_login' %}">ログイン</a></li>
+        {% endif %}
+        <li><a href="{% url 'user_logout' %}">ログアウト</a></li>
+        <li><a href="{% url 'help' %}">ヘルプ</a></li>
+        <li><a href="{% url 'info' %}">問い合わせ</a></li>
     </ul>
 </nav>
-<body>
-    <div style="text-align: center" class="cinema">
-        <a  href ="{% url 'top' %}"><img  src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400" height="80"></a>
-    </div>
-    <form style="text-align:center" method="post">
 
-    {% if is_new_user %}
-        <form method="post" action="{% url 'question' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">送信</button>
-        </form>
-    {% endif %}
-    
-    <form method="post">
-        {% csrf_token %}
-        <label for="user_input">↓Your Question↓</label>
-        <div class="user_input">
-            <textarea id="user_input" name="user_input"></textarea>
-        </div>
-        
-        <button type="submit">Ask GPT-4</button>
-    </form>
+<body background="{% static 'images/back3.png' %}" width="500" height="500">
+    <div class="container">
+        <form method="post">
 
-    {% if answer %}
-    <div>
-        <p><strong>Answer from GPT-4:</strong></p>
-        <p>{{ answer|safe }}</p>
-    </div>
-    {% endif %}
-    <form method="post" action="{% url 'save_conversation' %}">
-        {% csrf_token %}
-        <input type="hidden" name="user_input" value="{{ user_input }}">
-        <input type="hidden" name="answer" value="{{ answer }}">
-        <input  type="submit" value="この会話を保存">
-    </form>
 
-    <div class="save">
-        <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
-    </div>
-    <!--<a style="color: rgb(80, 142, 142);" href="{% url 'top' %}">トップページへ戻る</a>-->
- 
+            <div style="text-align: center" class="cinema">
+                <a href="{% url 'top' %}"><img src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400"
+                        height="80"></a>
+            </div>
+            <form style="text-align:center" method="post">
+
+                {% if is_new_user %}
+                <form method="post" action="{% url 'question' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">送信</button>
+                </form>
+                {% endif %}
+
+                <form  style="text-align: center"  method="post">
+                    {% csrf_token %}
+                    <label  for="user_input">↓質問を自由に入力してください↓</label>
+                    <div class="user_input">
+                        <textarea id="user_input" name="user_input"></textarea>
+                    </div>
+
+                    <button type="submit">Ask GPT-4</button>
+                </form>
+
+                {% if answer %}
+                <div>
+                    <p><strong>Answer from GPT-4:</strong></p>
+                    <p>{{ answer|safe }}</p>
+                </div>
+                {% endif %}
+                <form method="post" action="{% url 'save_conversation' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_input" value="{{ user_input }}">
+                    <input type="hidden" name="answer" value="{{ answer }}">
+                    <input type="submit" value="この会話を保存">
+                </form>
+
+                <div class="save">
+                    <a href="{% url 'view_conversations' %}">保存した会話を見る</a>
+                </div>
+                <!--<a style="color: rgb(80, 142, 142);" href="{% url 'top' %}">トップページへ戻る</a>-->
+         </form>
+     </div>
+           
 </body>
+
 </html>

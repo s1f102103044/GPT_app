@@ -334,3 +334,9 @@ header {
       -moz-border-radius:6px;
       border-radius:6px;
   }
+
+
+  .container {
+    background-color: rgba(0, 0, 0, 0.515); /* Semi-transparent black background */
+    padding: 10px;
+  }
