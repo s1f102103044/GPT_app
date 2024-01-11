@@ -233,3 +233,61 @@ nav ul li a:hover {
     background-color: rgba(0, 0, 0, 0.515); /* Semi-transparent black background */
     padding: 10px;
   }
+
+.question-label {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.answer-label {
+    color: #000000;
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.question-form {
+    text-align: center; /* テキストを中央揃えにします */
+    margin: 20px auto; /* 上下のマージンを設定し、左右は自動で中央に配置します */
+    padding: 15px; /* パディングを設定します */
+    background-color: #f8f8f8; /* 背景色を設定します */
+    border-radius: 10px; /* 角を丸くします */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ボックスに影をつけて立体感を出します */
+    width: 80%; /* 幅を80%に設定します */
+    max-width: 500px; /* 最大幅を500pxに設定します */
+}
+
+.answer-section {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #fffcfc;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: auto; /* 中央揃えのための設定 */
+    margin-right: auto; /* 中央揃えのための設定 */
+    border-radius: 5px;
+    width: 100%; /* 幅を100%に設定 */
+    max-width: 66.66%; /* 最大幅を画面の横幅の2/3に設定 */
+}
+
+.answer-content {
+    width: 100%; /* 幅を100%に設定 */
+    max-width: 66.66%; /* 画面幅の2/3に合わせる */
+    margin: 0 auto; /* 左右のマージンを自動で設定して中央に配置 */
+    display: block; /* ブロック要素に設定 */
+    color: #333;
+    white-space: pre-wrap; /* 改行と空白を保持 */
+    word-wrap: break-word; /* 長い単語は折り返す */
+    overflow-wrap: break-word; /* 長い単語は折り返す */
+}
+
+.form-group {
+    text-align: center;
+    margin-bottom: 20px; /* 下部の余白 */
+}
+
+button,
+.save a {
+    display: block; /* ブロックレベル要素にします */
+    margin: 10px auto; /* 上下に余白を設定し、左右は自動で中央に配置します */
+}
