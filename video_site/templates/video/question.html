@@ -85,7 +85,7 @@
                     <label style="color: rgba(240, 248, 255, 0.863);" class="question-label" for="user_input">AIがあなたと一緒に映画を探します</label>
                     <label class="question-label" for="user_input">▼質問を自由に入力してください▼</label>
                     <div class="user_input">
-                        <textarea id="user_input" name="user_input"></textarea>
+                        <textarea id="user_input" name="user_input" placeholder="ここに入力"></textarea>
                     </div>
 
                     <!--<div class="form-group">-->
@@ -112,9 +112,11 @@
                     
                 </form>
 
-                <div class="form-group save">
-                    <a href="{% url 'view_conversations' %}">保存した会話を見る▶</a>
-                </div>
+                <h2></h2>
+
+                <!--<div class="form-group save">-->
+                    <a class="form-group save" href="{% url 'view_conversations' %}">保存した会話を見る▶</a>
+                
                 <!--<a style="color: rgb(80, 142, 142);" href="{% url 'top' %}">トップページへ戻る</a>-->
          </form>
      </div>
