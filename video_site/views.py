@@ -28,10 +28,15 @@ def index(request):
         return redirect('register')
 
 def top(request):
-    # セッションからユーザーの選択を取得する
-    user_preferences = request.session.get('user_preferences')
+    recommended_movies = request.session.get('recommended_movies', [])
+    return render(request, 'video/top.html', {'recommended_movies': recommended_movies})    
 
+'''
+def top(request):
+    # セッションからユーザーの選択を取得する
     # TMDb APIを呼び出して映画のリストを取得する
+    recommended_movies = request.session.get('recommended_movies', [])
+    
     recommended_movies = []
     if user_preferences:
         api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
@@ -42,9 +47,10 @@ def top(request):
         recommended_movies = [{'title': movie['title'], 'image_url': movie['poster_path']} for movie in movies]
     else:
         movies = []
+    
 
     return render(request, 'video/top.html', {'recommended_movies': recommended_movies})
-
+'''
 
 def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
@@ -69,7 +75,9 @@ def question(request):
 
     except Exception as e:
         answer = str(e)  # エラーメッセージをキャッチ
-
+    if request.method == 'GET' or not form.is_valid():
+        form = QuestionForm()
+        return render(request, 'video/question.html', {'form': form, 'answer': answer})
     return render(request, 'video/question.html', {'answer': answer})
 
 
@@ -129,6 +137,42 @@ def question(request):
 
     return render(request, 'video/question.html', {'form': form, 'is_new_user': is_new_user})
 '''
+from django.shortcuts import render, redirect
+from .forms import QuestionForm
+import requests
+#e7f3afa7f6bc747e9a10789a5ca62773
+def fetch_movies(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            genre = form.cleaned_data['genre']
+            director = form.cleaned_data['director']
+            actor = form.cleaned_data['actor']
+            
+            api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
+            params = {
+                'api_key': api_key,
+                'language': 'ja-JP',
+                'query': genre,
+                'include_adult': 'false'
+            }
+            
+            response = requests.get('https://api.themoviedb.org/3/search/movie', params=params)
+            if response.status_code == 200:
+                movies_data = response.json().get('results', [])
+                request.session['recommended_movies'] = movies_data
+                return redirect('top')
+            else:
+                # Handle errors here
+                print("Error fetching movies:", response.status_code)
+
+    # If not POST method or form is not valid, show the form again with errors
+    else:
+        form = QuestionForm()
+    if request.method == 'GET' or not form.is_valid():
+        form = QuestionForm()
+        return render(request, 'video/question.html', {'form': form})
+    return render(request, 'video/question.html', {'form': form})
 
 
 def get_movies_data(genre, director, actor):

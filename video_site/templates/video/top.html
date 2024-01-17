@@ -94,29 +94,24 @@
         </section>
 
         <!-- 映画のおすすめリスト -->
-        <section class="movie-recommendations">
-          <h3 style="color: aliceblue;">▼あなたへのおすすめ▼</h3>
-          <div class="movie-list-container">
-            <ul class="movie-list">
-              {% if recommended_movies %}
-              {% for movie in recommended_movies %}
-              <li class="movie">
-                <!-- ここで onclick イベントに movie.id を渡す -->
-                <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" alt="{{ movie.title }}"
-                  onclick="showMovieDetails('{{ movie.id }}');" style="cursor:pointer;">
-              </li>
-              {% endfor %}
-
-
-              {% else %}
-              <p>映画のおすすめはログイン後に表示されます。</p>
-              <!-- 未登録ユーザーに新規登録を促すセクション -->
-              <p style="text-align: center"><a href="{% url 'register' %}"
-                  class="btn btn-gradient"><span>新規登録はこちらから</span></a></p>
-              {% endif %}
-            </ul>
-          </div>
-        </section>
+<section class="movie-recommendations">
+  <h3 style="color: aliceblue;">▼あなたへのおすすめ▼</h3>
+  <div class="movie-list-container">
+    <ul class="movie-list">
+      {% if recommended_movies %}
+      {% for movie in recommended_movies %}
+      <li class="movie">
+        <!-- ここで movie.poster_path を使用して画像のURLを構築 -->
+        <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}"
+          onclick="showMovieDetails('{{ movie.id }}');" style="cursor:pointer;">
+      </li>
+      {% endfor %}
+      {% else %}
+      <p>映画のおすすめはこちらに表示されます。</p>
+      {% endif %}
+    </ul>
+  </div>
+</section>
       </main>
       <!--e7f3afa7f6bc747e9a10789a5ca62773-->
       <script src="{% static 'js/scripts.js' %}"></script>
