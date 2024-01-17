@@ -9,6 +9,7 @@ Thumbs.db
 *.log
 *.pot
 *.pyc
+**/*.pyc
 __pycache__/
 local_settings.py
 db.sqlite3
@@ -156,3 +157,4 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 db.sqlite
+*.pyc
