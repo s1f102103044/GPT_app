@@ -59,6 +59,7 @@ def question(request):
     openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
     openai.api_base = "https://api.openai.iniad.org/api/v1"
     answer = ""
+    
 
     try:
         if request.method == "POST":
@@ -75,9 +76,11 @@ def question(request):
 
     except Exception as e:
         answer = str(e)  # エラーメッセージをキャッチ
+        '''
     if request.method == 'GET' or not form.is_valid():
         form = QuestionForm()
         return render(request, 'video/question.html', {'form': form, 'answer': answer})
+        '''
     return render(request, 'video/question.html', {'answer': answer})
 
 

@@ -235,6 +235,7 @@ nav ul li a:hover {
   }
 
 .question-label {
+    color: #000000;
     display: block;
     text-align: center;
     margin: 10px 0;
