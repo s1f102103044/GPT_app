@@ -63,22 +63,20 @@
 
 <body background="{% static 'images/back3.png' %}" width="500" height="500">
     <div class="container">
-        <form method="post">
+        <!--<form method="post">-->
 
-
+            <!--
             <div style="text-align: center" class="cinema">
                 <a href="{% url 'top' %}"><img src="{% static 'jpg/CinemaCompass_tomei.jpg' %}" width="400"
                         height="80"></a>
-            </div>
-            <form style="text-align:center" method="post">
+            </div>-->
+            <!--<form style="text-align:center" method="post">-->
 
-                {% if is_new_user %}
-                <form method="post" action="{% url 'question' %}">
+                <form method="post" action="{% url 'fetch_movies' %}" style="text-align:center">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit">送信</button>
                 </form>
-                {% endif %}
 
                 <form style="text-align: center" class="question-form" method="post">
                     {% csrf_token %}

@@ -20,4 +20,5 @@ urlpatterns = [
     path('help/',views.help,name='help'),
     path('info/',views.info,name='info'),
     path('license/',views.license,name='license'),
+    path('fetch_movies/', views.fetch_movies, name='fetch_movies'),
 ]
