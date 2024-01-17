@@ -15,6 +15,7 @@ from .forms import QuestionForm
 import requests  # TMDb APIのリクエストに使用します
 
 import openai
+import json
 
 #import logging
 
@@ -55,6 +56,8 @@ def top(request):
 def updated(request, article_id):
 	return HttpResponse("article_id: {}".format(article_id))
 
+
+'''
 def question(request):
     openai.api_key = 'B97dxwnrBS-KesXp2tuf62rF3D8AwQiaz9u437qpNa31D2bZglMJSXVKB4XgBwNg0F4Tzs6ON7bO_6Jv0ZF1WdQ'
     openai.api_base = "https://api.openai.iniad.org/api/v1"
@@ -76,12 +79,269 @@ def question(request):
 
     except Exception as e:
         answer = str(e)  # エラーメッセージをキャッチ
-        '''
+        
     if request.method == 'GET' or not form.is_valid():
         form = QuestionForm()
         return render(request, 'video/question.html', {'form': form, 'answer': answer})
-        '''
+        
     return render(request, 'video/question.html', {'answer': answer})
+'''
+
+
+
+
+
+
+
+
+
+
+#ここからquestion関係の関数!!
+
+
+
+
+
+
+
+
+def extract_search_parameters(response):
+    try:
+        # GPT-4の応答をJSONオブジェクトに変換
+        response_data = json.loads(response)
+
+        # 応答から必要なデータを抽出
+        genre = response_data.get('genre', None)
+        director = response_data.get('director', None)
+        actor = response_data.get('actor', None)
+
+        # 抽出したデータを辞書形式で返す
+        return {
+            'genre': genre,
+            'director': director,
+            'actor': actor
+        }
+    except json.JSONDecodeError:
+        # JSON形式でない場合のエラーハンドリング
+        return {'genre': None, 'director': None, 'actor': None}
+
+
+
+
+
+
+
+def get_person_id(name):
+    """ 人物の名前からTMDbのIDを取得する関数 """
+    base_url = 'https://api.themoviedb.org/3/search/person'
+    api_key = 'e7f3afa7f6bc747e9a10789a5ca62773'
+    params = {
+        'api_key': api_key,
+        'query': name
+    }
+    response = requests.get(base_url, params=params)
+    if response.status_code == 200:
+        results = response.json().get('results', [])
+        if results:
+            # 最初の検索結果のIDを返す
+            return results[0]['id']
+    return None
+
+
+
+
+
+
+
+
+
+
+def get_movies_data(genre=None, director=None, actor=None, language='ja-JP', page=1, query=None, year=None, primary_release_year=None, sort_by=None, include_adult=False, append_to_response=None, certification_country=None, certification=None):
+    print("get_movies_data 関数が呼び出されました")
+    base_url = 'https://api.themoviedb.org/3/discover/movie'
+    api_key= 'e7f3afa7f6bc747e9a10789a5ca62773'
+    
+    # 人物のIDを取得
+    director_id = get_person_id(director) if director else None
+    actor_id = get_person_id(actor) if actor else None
+
+    
+    
+    genre_ids={'Action': 28, 'Adventure': 12, 'Animation': 16, 'Comedy': 35, 'Crime': 80, 'Documentary': 99, 'Drama': 18, 'Family': 10751, 'Fantasy': 14, 'History': 36, 'Horror': 27, 'Music': 10402, 'Mystery': 9648, 'Romance': 10749, 'Science Fiction': 878, 'TV Movie': 10770, 'Thriller': 53, 'War': 10752, 'Western': 37}
+    # パラメータの入力
+    # genre_idsから指定したジャンル名に対応するIDを取り出します
+    genre_id = genre_ids.get(genre)
+
+    if genre_id is not None:
+        print(f"{genre}のIDは{genre_id}です。")
+    else:
+        print(f"{genre}は見つかりませんでした。")
+
+    params = {
+        'api_key': 'e7f3afa7f6bc747e9a10789a5ca62773',
+        'with_genres': genre,
+        'with_crew': director_id,
+        'with_cast': actor_id,
+        'language': language,
+        'page': page,
+        'query': query,
+        'year': year,
+        'primary_release_year': primary_release_year,
+        'sort_by': sort_by,
+        'include_adult': include_adult,
+        'append_to_response': append_to_response,
+        'certification_country': certification_country,
+        'certification': certification,
+    }
+
+    response = requests.get(base_url, params=params)
+    url = response.url
+
+    print(url)
+    
+    try:
+        response = requests.get(url)
+
+        # ステータスコードをチェック
+        if response.status_code == 200:
+            movies = response.json().get('results', [])
+
+            # 必要なデータ（タイトル、イメージURLなど）を抽出
+            movies_data = []
+            for movie in movies:
+                title = movie.get('title', 'タイトル不明')
+                image_path = movie.get('poster_path', '')
+                image_url = f"https://image.tmdb.org/t/p/w500{image_path}" if image_path else None
+                movies_data.append({'title': title, 'image_url': image_url})
+
+            return movies_data
+        else:
+            print("APIリクエストが失敗しました: ステータスコード", response.status_code)
+            return []
+    except Exception as e:
+        print("APIリクエスト中にエラーが発生しました:", e)
+        return []
+        
+
+# 例として、ジャンル、監督、俳優を指定して映画データを取得する
+movies_data = get_movies_data(genre='Action', actor='Robert Downey Jr.')
+print(movies_data)
+
+
+
+
+
+
+
+
+
+def is_json(myjson):
+    try:
+        json_object = json.loads(myjson)
+    except ValueError as e:
+        return False
+    return True
+
+
+
+
+
+
+
+
+def question(request):
+    print("question ビューが呼び出されました")
+    openai.api_key = 'Z98YF2NKSzzNbpc6NkvpUjckblBR4X3XdZJAMRgw6kzA_uIBE3ajapjdg_sRPx4qjB0NQY5ZjPQNlhudzOKM2zg'
+    openai.api_base = "https://api.openai.iniad.org/api/v1"
+    answer = ""
+
+    try:
+        if request.method == "POST":
+            user_input = request.POST.get("user_input")
+            print("ユーザー入力:", user_input)
+
+
+            # GPT-4に質問を送信して応答を取得
+            prompt = "ユーザーからの質問: {}\n\n".format(user_input) + \
+                "ユーザーが映画の推薦を求めている場合、以下のJSON形式で映画の推薦に必要な情報を提供してください。それ以外の質問には通常のテキスト応答を行ってください。\n" + \
+                "映画の推薦が要求された場合、モデルは映画のタイトル、ジャンル、監督、主要俳優をJSON形式で提供する必要があります。\n" + \
+                "JSON応答の例:\n" + \
+                "{\n" + \
+                "  \"title\": \"映画のタイトル\",\n" + \
+                "  \"genre\": \"ジャンル\",\n" + \
+                "  \"director\": \"監督の名前\",\n" + \
+                "  \"actor\": \"主要俳優の名前\"\n" + \
+                "}\n"
+            response = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "あなたは映画をおすすめするアシスタントです。次の要求に具体的に答えてください。"},
+                    {"role": "user", "content": user_input}
+                ]
+            )
+            answer = response.choices[0].message['content']
+            print("GPT-4からの応答:", answer)
+
+
+            # GPTの解答から取得すべき映画の特徴を取得しTMDbから持ってくる
+            if is_json(answer):
+                print("応答はJSON形式です")
+                search_params = extract_search_parameters(answer)
+                print("抽出された検索パラメータ:", search_params)
+                movies_data = get_movies_data(search_params['genre'], search_params['director'], search_params['actor'])
+                print("取得された映画データ:", movies_data)
+                # 映画データに完全な画像URLを追加
+                base_image_url = "https://image.tmdb.org/t/p/w500"
+                for movie in movies_data:
+                    if movie['image_path']:
+                        movie['image_url'] = base_image_url + movie['image_path']
+                    else:
+                        movie['image_url'] = None  # 画像がない場合
+                        
+                answer += "\n映画の推薦: " + str(movies_data)
+
+                
+                # TMDbの映画データをGPTに整理してもらう
+                organized_data = organize_data_with_gpt4(movies_data)
+                answer = organized_data
+                        
+                # Djangoテンプレートにデータを渡す
+                return render(request, 'video/question.html', {'movies_data': movies_data})
+            
+                
+            else:
+                print("応答はJSON形式ではありません")
+
+
+    except Exception as e:
+        print("エラー発生:", e)
+        answer = str(e)  # エラーメッセージをキャッチ
+
+    return render(request, 'video/question.html', {'answer': answer})
+
+
+
+
+
+
+
+
+
+
+
+
+#ここまでquestion関係の関数!!
+
+
+
+
+
+
+
+
+
+
+
 
 
 '''
